@@ -277,15 +277,19 @@ nav.jump { scroll-margin-top: 0; }
 .theme-foot button { font: inherit; font-size: 0.9rem; cursor: pointer; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); }
 @media (max-width: 720px) { nav.jump ul { justify-content: flex-start; } }
 
-/* Přesuny mezi body programu */
+/* Přesuny mezi body programu: patří mezi body, ale samy bodem programu nejsou,
+   proto bez odrážky, odsazené a v rámečku s čárkovanou linkou. */
 li.transfer {
-  list-style: none; color: var(--muted); font-size: .86rem;
-  margin: 2px 0 2px 0; padding-left: 2px;
+  list-style: none; color: var(--muted); font-size: .86rem; font-style: italic;
+  margin: 6px 0 8px -8px; padding: 5px 10px 5px 9px;
+  border-left: 2px dashed var(--teal); background: var(--paper);
+  border-radius: 0 8px 8px 0; max-width: 64ch;
 }
-li.transfer .arrow { color: var(--teal); font-weight: 700; margin-right: 2px; }
+li.transfer .arrow { color: var(--teal); font-weight: 700; margin-right: 2px; font-style: normal; }
 li.transfer .leaveat {
-  display: block; margin-top: 2px; color: var(--ink); font-weight: 600;
+  display: block; margin-top: 3px; color: var(--ink); font-weight: 600; font-style: normal;
 }
+li.transfer .maptag { font-style: normal; }
 
 /* Alternativy letů s cenou včetně zavazadel */
 ul.alts { margin: 10px 0 0; padding-left: 18px; font-size: .9rem; color: var(--muted); }
@@ -304,14 +308,14 @@ ul.alts b { color: var(--ink); }
     <h1>Istanbul, Izmir a Efes</h1>
     <p class="lead">Varianta cena/výkon pro dva na 8.–15. října 2026. Stejná trasa, ale placené vstupy jen tam, kde za to podle cestovatelů opravdu stojí. Zbytek jsou mešity, bazary, čtvrti a výhledy zdarma a lodě městské dopravy místo vyhlídkových plaveb.</p>
     <ol class="route" aria-label="Trasa" style="--route-count:4">
-      <li><span class="city">Istanbul</span><span class="nights">4 noci</span><span class="when">čt 8. – po 12. 10., Sultanahmet</span></li>
+      <li><span class="city">Istanbul</span><span class="nights">4 noci</span><span class="when">čt 8. – po 12. 10., Şehsuvar Bey, na pomezí Kadırgy a Kumkapı, pod Sultanahmetem</span></li>
       <li><span class="city">Izmir</span><span class="nights">1 noc</span><span class="when">po 12. – út 13. 10., kufry zůstávají v hotelu</span></li>
       <li><span class="city">Selçuk</span><span class="nights">1 noc</span><span class="when">út 13. – st 14. 10., jen s batohem, Şirince a Efes</span></li>
       <li><span class="city">Izmir</span><span class="nights">1 noc</span><span class="when">st 14. – čt 15. 10., večer odlet domů</span></li>
     </ol>
     <div class="totals">
-      <p><span class="big" id="heroSum">37 300 Kč až 42 900 Kč</span><br><span class="small">pro oba, podle zvoleného ubytování</span></p>
-      <p><span class="big" id="heroPp">18 700 Kč až 21 500 Kč</span><br><span class="small">na osobu</span></p>
+      <p><span class="big" id="heroSum">cca 42 500 Kč</span><br><span class="small">pro oba</span></p>
+      <p><span class="big" id="heroPp">cca 21 300 Kč</span><br><span class="small">na osobu</span></p>
     </div>
   </div>
 </header>
@@ -355,41 +359,38 @@ ul.alts b { color: var(--ink); }
 
   <section id="lety" aria-labelledby="lety-h">
     <h2 id="lety-h">Lety</h2>
-    <p class="intro">Ceny z Google Flights ke 23. 9. 2026 s filtrem 1 kabinové zavazadlo, za jednu osobu, v ekonomické třídě. U každého letu je uvedený tarif a co obsahuje: porovnává se vždy cena včetně kabinového zavazadla.</p>
+    <p class="intro">Všechny tři lety jsou zarezervované 24. 9. 2026. Ceny jsou skutečně zaplacené, za jednu osobu, v ekonomické třídě.</p>
     <div class="flights">
       <article class="flight">
         <div class="day">Čtvrtek 8. 10.<span>Turkish Airlines, přímý, 2 h 45 min</span></div>
         <div class="leg">Praha PRG 13:55 – Istanbul IST 17:40<small>Tarif Turkish Airlines, základní ekonomický tarif, v ceně malá taška pod sedadlo, kabinové zavazadlo 8 kg (55×40×23 cm). Hlavní letiště IST, odkud jede metro M11 do centra</small></div>
-        <div class="price"><strong>2 553 Kč</strong><span>na osobu se zavazadly</span></div>
+        <div class="price"><strong>2 718 Kč</strong><span>na osobu se zavazadly</span></div>
       </article>
       <article class="flight">
-        <div class="day">Pondělí 12. 10.<span>Turkish Airlines, přímý, 1 h 15 min</span></div>
-        <div class="leg">Istanbul IST 11:00 – Izmir ADB 12:15<small>Tarif Turkish Airlines, základní ekonomický tarif, v ceně malá taška pod sedadlo, kabinové zavazadlo 8 kg (55×40×23 cm). Let TK2320, přílet 12:15 na letiště ADB</small></div>
-        <div class="price"><strong>1 033 Kč</strong><span>na osobu se zavazadly</span></div>
+        <div class="day">Pondělí 12. 10.<span>Turkish Airlines, přímý, 1 h 10 min</span></div>
+        <div class="leg">Istanbul IST 13:00 – Izmir ADB 14:10<small>Tarif Turkish Airlines, základní ekonomický tarif, v ceně malá taška pod sedadlo, kabinové zavazadlo 8 kg (55×40×23 cm). Let TK2324, přílet 14:10 na letiště ADB</small></div>
+        <div class="price"><strong>1 096 Kč</strong><span>na osobu se zavazadly</span></div>
       </article>
       <article class="flight">
         <div class="day">Čtvrtek 15. 10.<span>SunExpress, přímý, 2 h 50 min</span></div>
-        <div class="leg">Izmir ADB 19:00 – Praha PRG 20:50<small>Tarif SunExpress SunEco, v ceně malá taška pod sedadlo, kabinové zavazadlo 8 kg (55×40×23 cm), odbavené zavazadlo 20 kg. Pozor na tarif SunLight, ten má jen malou tašku do 4 kg.</small></div>
-        <div class="price"><strong>1 829 Kč</strong><span>na osobu se zavazadly</span></div>
+        <div class="leg">Izmir ADB 19:00 – Praha PRG 20:50<small>Tarif SunExpress SunEco, v ceně malá taška pod sedadlo, kabinové zavazadlo 8 kg (55×40×23 cm), odbavené zavazadlo 20 kg. Zarezervovaný tarif SunExpress SunEco: kabinové zavazadlo 8 kg (55×40×23 cm) a malá taška pod sedadlo pro každého.</small></div>
+        <div class="price"><strong>2 256 Kč</strong><span>na osobu se zavazadly</span></div>
       </article>
     </div>
-        <ul class="alts">
-        <li><b>Pegasus ze SAW</b> PC2184 9:05–10:10: cenu se zavazadly nemáme. tarif Pegasus, tarif neověřen, v ceně malá taška pod sedadlo, příplatky: kabinové zavazadlo 8 kg: příplatek se nepodařilo zjistit. Bez ceny včetně kabinového zavazadla ji nelze počítat jako levnější. Navíc přílet na vzdálenější SAW.</li>
-        <li><b>AJet ze SAW</b> VF3066 10:15–11:30: cenu se zavazadly nemáme. tarif AJet, tarif neověřen, v ceně malá taška pod sedadlo, příplatky: kabinové zavazadlo 8 kg: příplatek se nepodařilo zjistit. Bez ceny včetně kabinového zavazadla ji nelze počítat jako levnější. Navíc přílet na vzdálenější SAW.</li>
-    </ul>
-    <p class="note">Levnější kombinace přes vzdálenější letiště SAW: Pegasus PC2184 9:05–10:10 a AJet VF3066 10:15–11:30. Časy jsou ověřené podle čísel letů pro 12. 10. 2026, ale ceny ani příplatky za kabinové zavazadlo se zjistit nepodařilo: obě společnosti je ukazují až v rezervaci. Dokud to nevíme, nepočítáme je jako levnější. Základní tarify u nich mívají jen tašku pod sedadlo, takže k ceně je potřeba připočítat kabinové zavazadlo.</p>
+    
+    
     <p class="totop"><a href="#obsah">Zpět na obsah</a></p>
   </section>
 
   <section id="overeno" aria-labelledby="over-h">
     <h2 id="over-h">Co je ověřené</h2>
-    <p class="intro">Stav k 23. 9. 2026, ceny a časy ověřené z více zdrojů. Co je označené jako odhad, se nepodařilo ověřit z konkrétního ceníku.</p>
+    <p class="intro">Stav k 24. 9. 2026, ceny a časy ověřené z více zdrojů. Co je označené jako odhad, se nepodařilo ověřit z konkrétního ceníku.</p>
     <div class="scroll">
       <table class="stack">
         <thead><tr><th>Položka</th><th>Stav</th><th>Zdroj</th></tr></thead>
         <tbody>
-          <tr><td>Letenky</td><td class="ok">ověřeno</td><td>Google Flights s filtrem zavazadel, tarify u dopravců: 2 553 + 1 033 + 1 829 Kč na osobu včetně kabinového zavazadla. Prostřední let je 11:00–12:15. Zpáteční let je SunExpress SunEco, ne SunLight. <span class="alt">ověřeno 23. 9. 2026</span></td></tr>
-          <tr><td>Ubytování</td><td class="ok">ověřeno</td><td>Booking.com, přesná data, 2 dospělí <span class="alt">ověřeno 23. 9. 2026</span></td></tr>
+          <tr><td>Letenky</td><td>rezervováno</td><td>rezervace uživatele: 2 718 + 1 096 + 2 256 Kč na osobu. Prostřední let je 13:00–14:10. <span class="alt">ověřeno 24. 9. 2026</span></td></tr>
+          <tr><td>Ubytování</td><td>rezervováno</td><td>rezervace uživatele: MorAgop Suites 5 744 Kč, Ramses Hotel 2 × 1 778 Kč, Nilya Hotel 1 780 Kč <span class="alt">ověřeno 24. 9. 2026</span></td></tr>
           <tr><td>Vlaky Basmane – Selçuk a zpět</td><td>k ověření</td><td>trenseferleri.com, cena odvozená ze zdražení TCDD: 9 spojů každým směrem, 130 lir <span class="alt">ověřeno 23. 9. 2026</span></td></tr>
           <tr><td>Vlaky Basmane – letiště ADB</td><td class="ok">ověřeno</td><td>TCDD, ceník po zdražení 17. 8. 2026: 19 spojů denně, 85 lir <span class="alt">ověřeno 23. 9. 2026</span></td></tr>
           <tr><td>Efes a Terasové domy</td><td class="ok">ověřeno</td><td>muze.gov.tr a ephesustravelguide.com: Efes 40 €, Terasové domy 15 €, otevřeno od 8:00 <span class="alt">ověřeno 23. 9. 2026</span></td></tr>
@@ -418,23 +419,24 @@ ul.alts b { color: var(--ink); }
         <h3>Přílet do Istanbulu</h3>
         <p class="daysub">Letíte z Prahy, večer Sultanahmet.</p>
         <ul>
-          <li><span class="time">9:00</span> <b>Odjezd z Hradce Králové</b> Parkování GoParking a jejich odvoz na terminál. Na zaparkování a odvoz si vyhraďte 15–20 minut, transfer jezdí nonstop a trvá asi 3 minuty. Na letišti nejpozději v 10:55.<span class="tipline"><b>Tip:</b> V termínu cesty se na D11 mezi Poděbrady a Sadskou opravuje vozovka a u Jirnů je zúžení na jeden pruh. U křižovatky Aviatická se navíc tvoří kolony. Proto odjezd v 9:00, ne později, a stav na D11 si ráno ověřte na dopravniinfo.cz.</span></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> autem 128 km, asi 2 h 15 min, jízda 115 min a k tomu 20 min na předání auta a odvoz GoParkingu na terminál <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=50.209457,15.832257&amp;destination=50.120968,14.287558&amp;travelmode=driving" target="_blank" rel="noreferrer">Navigovat</a><span class="leaveat">Vyrazte v 8:40 na let v 13:55, rezerva 180 min</span></li>
+          <li><span class="time">9:00</span> <b>Odjezd z Hradce Králové</b> Parkování GoParking a jejich odvoz na terminál. Jízda 115 minut a k tomu 15–20 minut na zaparkování, předání auta a odvoz, transfer jezdí nonstop. Na terminálu tedy kolem 11:15, to je 2 hodiny a 40 minut před odletem.<span class="tipline"><b>Tip:</b> V termínu cesty se na D11 mezi Poděbrady a Sadskou opravuje vozovka a u Jirnů je zúžení na jeden pruh. U křižovatky Aviatická se navíc tvoří kolony. Stav si ráno ověřte na dopravniinfo.cz. Odbavte se online, ať u přepážky nestojíte: na letišti budete 2 h 40 min před odletem, tedy o 20 minut méně, než je doporučená tříhodinová rezerva.</span></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> autem 128 km, asi 2 h 15 min, jízda 115 min a k tomu 20 min na předání auta a odvoz GoParkingu na terminál <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=50.209457,15.832257&amp;destination=50.120968,14.287558&amp;travelmode=driving" target="_blank" rel="noreferrer">Navigovat</a><span class="leaveat">Odjezd v 9:00, na letišti v 11:15, rezerva 160 min před 13:55, o 20 min méně než doporučených 180 min</span></li>
           <li><span class="time">13:55</span> <b>Odlet Turkish Airlines do Istanbulu</b> Přílet na letiště IST v 17:40 místního času. V Turecku je o hodinu víc. Let mimo Schengen, na letišti buďte 3 hodiny před odletem.</li>
           <li><span class="time">18:15</span> <b>Karty İstanbulkart</b> V automatu u stanice metra M11 si každý koupí kartu (165 lir, orientačně) a nabije ji. Počítejte zhruba 1 000 lir na osobu na celý pobyt a dobíjejte průběžně v automatech. <span class="tag event">165 lir za kartu</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.256275%2C28.742671" target="_blank" rel="noopener">Mapa</a></li>
-          <li><span class="time">18:30</span> <b>Metrem do Sultanahmetu</b> M11 do Gayrettepe (30–40 min), přestup na M2 do Vezneciler, pak pěšky nebo tramvají T1.</li>
-          <li><span class="time">20:00</span> <b>Ubytování</b> Tulip Guesthouse, ulice Akbıyık. <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.005862%2C28.981321" target="_blank" rel="noopener">Mapa</a></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 700 m, asi 10 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.005862,28.981321&amp;destination=41.006329,28.975705&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
+          <li><span class="time">18:30</span> <b>Metrem k hotelu</b> M11 do Gayrettepe (30–40 min), přestup na M2 do Vezneciler, pak asi 17 minut pěšky z kopce k hotelu.</li>
+          <li><span class="time">20:00</span> <b>Ubytování</b> MorAgop Suites, ulice Ördeklibakkal v Kadırze. <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.004114%2C28.964248" target="_blank" rel="noopener">Mapa</a></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 1,2 km, asi 16 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.004114,28.964248&amp;destination=41.006329,28.975705&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">20:30</span> <b>Večerní procházka</b> Nasvícená Modrá mešita a Hagia Sofia zvenku, Hipodrom s egyptským obeliskem. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.006329%2C28.975705" target="_blank" rel="noopener">Mapa</a></li>
         </ul>
         <p class="eat"><b>Jídlo:</b> Večeře dvě ulice stranou od náměstí, ne v restauracích s naháněči.</p>
-        <span class="stay">Nocleh: Istanbul, Sultanahmet (4 noci)</span>
+        <span class="stay">Nocleh: Istanbul, Şehsuvar Bey, na pomezí Kadırgy a Kumkapı, pod Sultanahmetem (4 noci)</span>
       </li>
       <li class="">
         <span class="daydate">Pátek 9. 10.</span>
         <h3>Topkapı, bazar a Süleymaniye</h3>
         <p class="daysub">Den palácu a starého města.</p>
         <ul>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> Z ubytování: pěšky 2,2 km, asi 32 min, přes Sultanahmet k první bráně paláce <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.004114,28.964248&amp;destination=41.011519,28.983379&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">9:00</span> <b>Palác Topkapı</b> Pokladny otevírají v 9:00. Vstupenka zahrnuje Harém i Hagia Irene. Počítejte s půl dnem. <span class="tag event">2 750 lir</span> <span class="tag event">vyplatí se</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.011519%2C28.983379" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> Přijďte k otevření, později jsou fronty.</span></li>
           <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 850 m, asi 12 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.011519,28.983379&amp;destination=41.013308,28.98151&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">12:30</span> <b>Park Gülhane a oběd</b> Park pod palácem, oběd v okolí. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.013308%2C28.98151" target="_blank" rel="noopener">Mapa</a></li>
@@ -445,7 +447,7 @@ ul.alts b { color: var(--ink); }
           <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 900 m, asi 13 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.010685,28.968068&amp;destination=41.016047,28.963971&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">16:45</span> <b>Mešita Süleymaniye</b> Větší než Modrá mešita a s menším davem. Z terasy výhled na Zlatý roh, slunce zapadá v 18:35. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.016047%2C28.963971" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> V pátek je mešita kvůli odpolední modlitbě zavřená zhruba od 15:35 do 16:40, turisty pouštějí až po ní. Pozor na zavírací dobu: zdroje se liší mezi 17:00, 18:00 a 18:45. Kdyby platilo zimní zavírání v 17:00, na návštěvu by zbylo jen pár minut, tak se na místě zeptejte nebo přijďte dřív. Zakrytá ramena a kolena, ženy šátek.</span></li>
         </ul>
-        <p class="eat"><b>Jídlo:</b> Pod Süleymaniye jsou jídelny s fazolemi kuru fasulye a rýží. Levné a místní.</p>
+        <p class="eat"><b>Jídlo:</b> Na oběd jídelny pod Süleymaniye s fazolemi kuru fasulye a rýží. Večeři si uvaříte v kuchyňce, nakupte cestou k hotelu.</p>
         
       </li>
       <li class="">
@@ -453,6 +455,7 @@ ul.alts b { color: var(--ink); }
         <h3>Koření, Bospor a Galata</h3>
         <p class="daysub">Lodí na asijskou stranu a zpátky.</p>
         <ul>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> Z ubytování: pěšky 1,8 km, asi 28 min, z hotelu dolů kolem Velkého bazaru k Egyptskému bazaru; tramvají T1 z Beyazıt-Kapalıçarşı do Eminönü je to zhruba stejně dlouhé (13 min pěšky na zastávku a 16 min jízdy) <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.004114,28.964248&amp;destination=41.017577,28.968827&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">9:30</span> <b>Mešita Rüstem Paşa</b> Modré kachle, schovaná v uličkách u tržiště. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.017577%2C28.968827" target="_blank" rel="noopener">Mapa</a></li>
           <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 170 m, asi 2 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.017577,28.968827&amp;destination=41.0165,28.970519&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">10:15</span> <b>Egyptský kořenný bazar</b> Koření, čaj, lokum. Ochutnávejte před koupí, v okolních uličkách bývá levněji. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.0165%2C28.970519" target="_blank" rel="noopener">Mapa</a></li>
@@ -462,10 +465,10 @@ ul.alts b { color: var(--ink); }
           <li><span class="time">13:00</span> <b>Lodí přes Bospor do Üsküdaru</b> Městská loď s İstanbulkart. Výhled na Dívčí věž, zpátky do Karaköy nebo Beşiktaşe. <span class="tag event">cca 60 lir</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.017995%2C28.974082" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> Loď do Üsküdaru odjíždí z mola Boğaz, odkud jezdí i vyhlídkové plavby. Mola jsou v řadě a číslují se od Sirkeci k mostu. Od Galatského mostu jsou to: Turyol (soukromý), Camlı İskele (lodě do Kadıköy), Boğaz İskelesi (lodě do Üsküdaru a po Bosporu), pak molo na ostrovy. Na budově každého mola je nápis s cílem. Městská loď se platí İstanbulkartem u turniketu, vyhlídkovou plavbu prodává člověk s cedulí nebo budka s cenou v eurech: kdo vás zve na palubu a mluví o ceně, není městská loď.</span></li>
           <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 1,4 km, asi 22 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.017995,28.974082&amp;destination=41.025569,28.974129&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">16:00</span> <b>Galata, Karaköy a İstiklal</b> Uličky pod Galatskou věží, třída İstiklal až na Taksim. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.025569%2C28.974129" target="_blank" rel="noopener">Galatská věž</a> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.022928%2C28.97399" target="_blank" rel="noopener">Karaköy</a> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.033787%2C28.977953" target="_blank" rel="noopener">Třída İstiklal</a></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 950 m, asi 14 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.025569,28.974129&amp;destination=41.020015,28.97322&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 1,8 km, asi 25 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.033787,28.977953&amp;destination=41.020015,28.97322&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">18:00</span> <b>Západ slunce z Galatského mostu</b> Mezi rybáři, slunce zapadá v 18:33. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.020015%2C28.97322" target="_blank" rel="noopener">Mapa</a></li>
         </ul>
-        <p class="eat"><b>Jídlo:</b> Lahmacun nebo pide v Beyoğlu, na ulici plněné slávky midye dolma.</p>
+        <p class="eat"><b>Jídlo:</b> Přes den lahmacun nebo pide v Beyoğlu, na ulici plněné slávky midye dolma. Večeře zase v kuchyňce v hotelu.</p>
         
       </li>
       <li class="">
@@ -473,14 +476,15 @@ ul.alts b { color: var(--ink); }
         <h3>Balat, Pierre Loti a Kadıköy</h3>
         <p class="daysub">Velký bazar je dnes zavřený.</p>
         <ul>
-          <li><span class="time">9:00</span> <b>Balat a Fener</b> Barevné čtvrti, strmé uličky, kavárny. Obydlené čtvrti, choďte s respektem. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.029211%2C28.948498" target="_blank" rel="noopener">Balat</a> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.030514%2C28.950545" target="_blank" rel="noopener">Fener</a></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> autobusem, asi 12 min, autobusem od Eminönü nebo taxi, linku ukáže Google Mapy <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.029211,28.948498&amp;destination=41.049844,28.934349&amp;travelmode=transit" target="_blank" rel="noreferrer">Navigovat</a></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> Z ubytování: taxíkem 6,0 km, asi 18 min, taxi z hotelu podél Zlatého rohu, objednané přes BiTaksi na 9:00 <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.004114,28.964248&amp;destination=41.029211,28.948498&amp;travelmode=driving" target="_blank" rel="noreferrer">Navigovat</a></li>
+          <li><span class="time">9:20</span> <b>Balat a Fener</b> Barevné čtvrti, strmé uličky, kavárny. Obydlené čtvrti, choďte s respektem. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.029211%2C28.948498" target="_blank" rel="noopener">Balat</a> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.030514%2C28.950545" target="_blank" rel="noopener">Fener</a><span class="tipline"><b>Tip:</b> Taxi objednejte přes aplikaci BiTaksi na 9:00, jízda trvá asi 18 minut a stojí cca 360 lir. Městskou dopravou by to bylo asi 50 minut (dvě tramvaje a dvakrát pěšky), proto tudy jedeme taxíkem.</span></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> tramvají T5, asi 30 min, pěšky 11 min na zastávku T5 Balat (800 m), tramvají 15 min do Eyüpsultan Teleferik, odtud pár minut pěšky k dolní stanici lanovky <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.030514,28.950545&amp;destination=41.049844,28.934349&amp;travelmode=transit" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">11:30</span> <b>Lanovkou na Pierre Loti</b> Z Eyüpu lanovkou s İstanbulkart, čaj nahoře s výhledem na Zlatý roh. <span class="tag event">İstanbulkart</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.049844%2C28.934349" target="_blank" rel="noopener">Mapa</a></li>
           <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 650 m, asi 9 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.049844,28.934349&amp;destination=41.04726,28.93777&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a><span class="leaveat">Vyrazte v 13:46 na loď v 14:05, rezerva 10 min</span></li>
           <li><span class="time">14:05</span> <b>Lodí z Eyüpsultan do Kadıköy</b> Po Zlatém rohu asi 50 minut. Zimní řád 2026/27: v neděli odjezdy 14:05, 15:05, 16:05, 17:05, 18:05, 19:05 a poslední 20:05. <span class="tag event">cca 77 lir</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.04726%2C28.93777" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> Jízdní řád je zimní, platí od září 2026. Spoj v 15:05 jede jen v neděli a ve svátky, na přístavišti si řád i tak ověřte.</span></li>
           <li><span class="time">15:00</span> <b>Kadıköy a Moda</b> Tržnice s rybami, olivami a sýry, pak pěšky do Mody. Západ slunce v parku u moře. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=40.990541%2C29.025133" target="_blank" rel="noopener">Kadıköy, tržnice Çarşı</a> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=40.980008%2C29.022831" target="_blank" rel="noopener">Moda</a></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 650 m, asi 8 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=40.990541,29.025133&amp;destination=40.992993,29.02271&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
-          <li><span class="time">20:00</span> <b>Lodí zpět do Eminönü</b> Městská loď, pak tramvají T1 do Sultanahmetu. <span class="tag event">cca 65 lir</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=40.992993%2C29.02271" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> Loď přijíždí v Eminönü k molu Camlı, blíž ke Galatskému mostu, ne k molu pojmenovanému „Kadıköy“. To je molo na Princovy ostrovy.</span></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 1,8 km, asi 25 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=40.980008,29.022831&amp;destination=40.992993,29.02271&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
+          <li><span class="time">20:00</span> <b>Lodí zpět do Eminönü</b> Městská loď, pak tramvají T1 do Beyazıt-Kapalıçarşı a 13 minut pěšky k hotelu. <span class="tag event">cca 65 lir</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=40.992993%2C29.02271" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> Loď přijíždí v Eminönü k molu Camlı, blíž ke Galatskému mostu, ne k molu pojmenovanému „Kadıköy“. To je molo na Princovy ostrovy.</span></li>
         </ul>
         <p class="eat"><b>Jídlo:</b> Večeře v Kadıköy, je tu levněji a nikdo vás nenahání.</p>
         
@@ -488,16 +492,16 @@ ul.alts b { color: var(--ink); }
       <li class="">
         <span class="daydate">Pondělí 12. 10.</span>
         <h3>Přelet do Izmiru</h3>
-        <p class="daysub">Dopoledne letiště, odpoledne Izmir.</p>
+        <p class="daysub">Klidné ráno, v poledne letiště, odpoledne Izmir.</p>
         <ul>
-          <li><span class="time">8:15</span> <b>Odjezd na letiště IST</b> Tramvají nebo pěšky do Vezneciler, M2 do Gayrettepe, M11 na letiště. Celkem asi hodina a čtvrt. <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.261821%2C28.742441" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> Vnitrostátní let: na letišti hodinu a čtvrt před odletem.</span></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> metrem T1 + M11, asi 81 min, tramvají na M11 a metrem na letiště <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.008106,28.975606&amp;destination=41.261821,28.742441&amp;travelmode=transit" target="_blank" rel="noreferrer">Navigovat</a><span class="leaveat">Vyrazte v 6:39 na let v 11:00, rezerva 180 min</span></li>
-          <li><span class="time">11:00</span> <b>Let TK2320 Turkish Airlines do Izmiru</b> Vnitrostátní let, na letišti stačí být hodinu a čtvrt před odletem. Let 11:00–12:15, přílet na letiště ADB ve 12:15. Letová doba 1 h 15 min. Zimní letový řád začíná až 25. 10., na 12. 10. platí letní.</li>
-          <li><span class="time">13:08</span> <b>Vlakem do centra</b> Z nádraží u letiště regionálním vlakem do Basmane (13:08 → 13:32, záloha 13:47). Jízdní řád v záložce Doprava. <span class="tag event">85 lir</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.291085%2C27.147958" target="_blank" rel="noopener">Mapa</a></li>
-          <li><span class="time">14:00</span> <b>Ubytování</b> Alves Hotel, kousek od nádraží Basmane. Požádejte o úschovu kufrů na zítřejší noc. <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.422613%2C27.142308" target="_blank" rel="noopener">Mapa</a></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 1,4 km, asi 20 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=38.422613,27.142308&amp;destination=38.4189,27.1287&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
-          <li><span class="time">15:00</span> <b>Konak, Kemeraltı a Kızlarağası Han</b> Hodinová věž, bazar a karavanseraj. Čaj v kavárně Acı Kahve uprostřed hanu. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.4189%2C27.1287" target="_blank" rel="noopener">Konak, hodinová věž</a> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.418699%2C27.133009" target="_blank" rel="noopener">Bazar Kemeraltı</a> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.421203%2C27.132794" target="_blank" rel="noopener">Kızlarağası Hanı</a></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 2,5 km, asi 34 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=38.4189,27.1287&amp;destination=38.438164,27.141441&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
+          <li><span class="time">9:15</span> <b>Odjezd od hotelu na letiště IST</b> Pěšky asi 17 minut na metro M2 Vezneciler, pak M2 do Gayrettepe a M11 na letiště. S chůzí a přestupem počítejte hodinu a půl, na letišti kolem 10:45. <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.004114%2C28.964248" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> Turkish Airlines doporučuje i u vnitrostátního letu z IST být na letišti 2 hodiny před odletem.</span></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> metrem M2 + M11, asi 1 h 30 min, pěšky 17 min na M2 Vezneciler, pak metrem s přestupem v Gayrettepe asi 70 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=41.004114,28.964248&amp;destination=41.261821,28.742441&amp;travelmode=transit" target="_blank" rel="noreferrer">Navigovat</a><span class="leaveat">Odjezd v 9:15, na letišti v 10:45, rezerva 135 min před 13:00</span></li>
+          <li><span class="time">13:00</span> <b>Let TK2324 Turkish Airlines do Izmiru</b> Vnitrostátní let, ale Turkish Airlines doporučuje na letišti IST být 2 hodiny před odletem. Let 13:00–14:10, přílet na letiště ADB ve 14:10. Letová doba 1 h 10 min. Zimní letový řád začíná až 25. 10., na 12. 10. platí letní.</li>
+          <li><span class="time">15:05</span> <b>Vlakem do centra</b> Z nádraží u letiště regionálním vlakem do Basmane (15:05 → 15:27, záloha 15:18 a 16:34). Jízdní řád v záložce Doprava. <span class="tag event">85 lir</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.291085%2C27.147958" target="_blank" rel="noopener">Mapa</a></li>
+          <li><span class="time">15:45</span> <b>Ubytování</b> Ramses Hotel, asi 11 minut pěšky od nádraží Basmane. Požádejte o úschovu kufrů na zítřejší noc. <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.424404%2C27.148392" target="_blank" rel="noopener">Mapa</a></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 2,2 km, asi 30 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=38.424404,27.148392&amp;destination=38.4189,27.1287&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
+          <li><span class="time">16:15</span> <b>Konak, Kemeraltı a Kızlarağası Han</b> Hodinová věž, bazar a karavanseraj. Čaj v kavárně Acı Kahve uprostřed hanu. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.4189%2C27.1287" target="_blank" rel="noopener">Konak, hodinová věž</a> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.418699%2C27.133009" target="_blank" rel="noopener">Bazar Kemeraltı</a> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.421203%2C27.132794" target="_blank" rel="noopener">Kızlarağası Hanı</a></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 2,2 km, asi 31 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=38.421203,27.132794&amp;destination=38.438164,27.141441&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">18:10</span> <b>Nábřeží Kordon</b> Západ slunce v 18:40, simit a ayran ze stánku. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.438164%2C27.141441" target="_blank" rel="noopener">Mapa</a></li>
         </ul>
         <p class="eat"><b>Jídlo:</b> Večeře v Alsancaku, ryba nebo meze.</p>
@@ -508,11 +512,12 @@ ul.alts b { color: var(--ink); }
         <h3>Do Selçuku a Şirince</h3>
         <p class="daysub">Kufry zůstávají v Izmiru, jedete jen s batohem.</p>
         <ul>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> Z ubytování: pěšky 450 m, asi 6 min, z hotelu po Mürselpaşa k nádraží Basmane <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=38.424404,27.148392&amp;destination=38.422733,27.144674&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">9:55</span> <b>Vlak z Basmane do Selçuku</b> V Selçuku kolem 11:30. Jízdenky na nádraží, přijďte 15 minut předem. Další vlaky v záložce Doprava. <span class="tag event">130 lir</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.422733%2C27.144674" target="_blank" rel="noopener">Mapa</a></li>
           <li><span class="time">12:00</span> <b>Batohy do hotelu, oběd</b> Nilya Hotel, 400 m od centra. <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.950663%2C27.36771" target="_blank" rel="noopener">Mapa</a></li>
           <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 1,0 km, asi 13 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=37.950663,27.36771&amp;destination=37.949579,27.363913&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">14:00</span> <b>Artemidin chrám a mešita İsa Bey</b> Sloup s čapím hnízdem a mešita ze 14. století. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.949579%2C27.363913" target="_blank" rel="noopener">Artemidin chrám</a> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.952236%2C27.365904" target="_blank" rel="noopener">Mešita İsa Bey</a></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 900 m, asi 13 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=37.949579,27.363913&amp;destination=37.94826,27.36969&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a><span class="leaveat">Vyrazte v 14:37 na minibus v 15:00, rezerva 10 min</span></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 850 m, asi 13 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=37.952236,27.365904&amp;destination=37.94826,27.36969&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a><span class="leaveat">Vyrazte v 14:37 na minibus v 15:00, rezerva 10 min</span></li>
           <li><span class="time">15:00</span> <b>Minibusem do Şirince</b> Asi 20 minut. Vesnice s kamennými domy a ochutnávkami vín. <span class="tag event">50–100 lir</span> <span class="tag opt">volitelně</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.944101%2C27.431625" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> Od října jede poslední minibus zpátky kolem 18:00. Později jen taxíkem.</span></li>
         </ul>
         <p class="eat"><b>Jídlo:</b> Večeře v Şirince, nebo v klidu v Selçuku: çöp şiş, malé jehněčí špízy.</p>
@@ -523,6 +528,7 @@ ul.alts b { color: var(--ink); }
         <h3>Efes a zpět do Izmiru</h3>
         <p class="daysub">Vezměte vodu, pokrývku hlavy a pevné boty.</p>
         <ul>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> Z ubytování: taxíkem 3,7 km, asi 6 min, taxi od hotelu k horní bráně, objednat večer předem nebo přes BiTaksi <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=37.950663,27.36771&amp;destination=37.935543,27.346109&amp;travelmode=driving" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">8:45</span> <b>Taxíkem k horní bráně Efesu</b> Pár minut jízdy z Selçuku. Ráno se odhlaste a batohy nechte v hotelu. <span class="tag event">cca 12–15 €</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.935543%2C27.346109" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> Cenu domluvte s řidičem předem. Zdroje uvádějí od 8 do 50 €, takže bez dohody předem se dá snadno přeplatit.</span></li>
           <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 1,0 km, asi 13 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=37.935543,27.346109&amp;destination=37.939205,27.34092&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">9:00</span> <b>Efes</b> Shora dolů ke Celsově knihovně. Otevírá se v 8:00. <span class="tag event">40 €</span> <span class="tag event">vyplatí se</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.939205%2C27.34092" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> Ke knihovně dojděte před desátou, pak přijdou skupiny z lodí.</span></li>
@@ -530,11 +536,11 @@ ul.alts b { color: var(--ink); }
           <li><b>Terasové domy</b> Mozaiky a fresky, podle všech blogerů stojí za to. <span class="tag event">15 €</span> <span class="tag event">vyplatí se</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.938243%2C27.341404" target="_blank" rel="noopener">Mapa</a></li>
           <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 800 m, asi 11 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=37.938243,27.341404&amp;destination=37.944901,27.341744&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">12:30</span> <b>Dolní bránou ven</b> Minibusem do Selçuku, jezdí jen od dolní brány. Oběd ve městě, ne u bran. <span class="tag event">90–100 lir</span> <span class="tag opt">volitelně</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.944901%2C27.341744" target="_blank" rel="noopener">Mapa</a></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> autobusem 3,4 km, asi 48 min, minibusem od dolní brány do Selçuku <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=37.944901,27.341744&amp;destination=37.953023,27.366971&amp;travelmode=transit" target="_blank" rel="noreferrer">Navigovat</a></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> autobusem 2,9 km, asi 24 min, minibusem od dolní brány: 3 min na zastávku, 7 min jízda, 14 min pěšky od nádraží <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=37.944901,27.341744&amp;destination=37.953023,27.366971&amp;travelmode=transit" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">14:15</span> <b>Bazilika sv. Jana</b> Hrad nad městem s výhledem, deset minut od nádraží. Volitelně Efeské muzeum (10 €). <span class="tag event">6 €</span> <span class="tag opt">volitelně</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.953023%2C27.366971" target="_blank" rel="noopener">Mapa</a></li>
           <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 400 m, asi 5 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=37.953023,27.366971&amp;destination=37.950663,27.36771&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">15:15</span> <b>Batohy z hotelu</b> Vyzvednout a na nádraží. <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.950663%2C27.36771" target="_blank" rel="noopener">Mapa</a></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 700 m, asi 11 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=37.950663,27.36771&amp;destination=37.950954,27.373131&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a><span class="leaveat">Vyrazte v 15:15 na vlak v 15:36, rezerva 10 min</span></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 700 m, asi 11 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=37.950663,27.36771&amp;destination=37.950954,27.373131&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a><span class="leaveat">Odjezd v 15:15, na nádraží v 15:26, rezerva 10 min před 15:36</span></li>
           <li><span class="time">15:36</span> <b>Vlak do Izmiru</b> V Basmane v 17:00. Záloha: vlak ve 14:10, v Izmiru v 15:42. <span class="tag event">130 lir</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.950954%2C27.373131" target="_blank" rel="noopener">Mapa</a></li>
           <li><span class="time">18:00</span> <b>Výtah Asansör</b> Západ slunce nad zálivem v 18:37, kavárny Lutz Coffee nebo Aşıklar Tepesi hned vedle. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.408659%2C27.117645" target="_blank" rel="noopener">Mapa</a></li>
         </ul>
@@ -546,14 +552,15 @@ ul.alts b { color: var(--ink); }
         <h3>Izmir a odlet domů</h3>
         <p class="daysub">Snídaně, odhlášení, kufry na recepci.</p>
         <ul>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> Z ubytování: taxíkem 3,1 km, asi 9 min, taxi do kopce k hradbám; MHD trvá asi 31 minut s přestupem <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=38.424404,27.148392&amp;destination=38.414376,27.145827&amp;travelmode=driving" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">10:00</span> <b>Hrad Kadifekale</b> Na kopci nad městem s výhledem na celý záliv. <span class="tag free">zdarma</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.414376%2C27.145827" target="_blank" rel="noopener">Mapa</a></li>
           <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 1,1 km, asi 19 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=38.414376,27.145827&amp;destination=38.418841,27.139059&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
           <li><span class="time">12:00</span> <b>Agora Smyrny a Kemeraltı</b> Antická agora, otevřeno do 17:30. Poslední procházka bazarem a oběd v lokantě. <span class="tag event">6 €</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.418841%2C27.139059" target="_blank" rel="noopener">Mapa</a></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 750 m, asi 10 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=38.418841,27.139059&amp;destination=38.422613,27.142308&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
-          <li><span class="time">14:15</span> <b>Kufry z hotelu</b> Vyzvednout na recepci Alves Hotelu. <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.422613%2C27.142308" target="_blank" rel="noopener">Mapa</a></li>
-          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 270 m, asi 4 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=38.422613,27.142308&amp;destination=38.422733,27.144674&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a><span class="leaveat">Vyrazte v 14:21 na vlak v 14:35, rezerva 10 min</span></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 1,4 km, asi 19 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=38.418841,27.139059&amp;destination=38.424404,27.148392&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a></li>
+          <li><span class="time">14:00</span> <b>Kufry z hotelu</b> Vyzvednout na recepci Ramses Hotelu. <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.424404%2C27.148392" target="_blank" rel="noopener">Mapa</a></li>
+          <li class="transfer"><span class="arrow" aria-hidden="true">↓</span> pěšky 810 m, asi 11 min <a class="tag maptag" href="https://www.google.com/maps/dir/?api=1&amp;origin=38.424404,27.148392&amp;destination=38.422733,27.144674&amp;travelmode=walking" target="_blank" rel="noreferrer">Navigovat</a><span class="leaveat">Vyrazte v 14:14 na vlak v 14:35, rezerva 10 min</span></li>
           <li><span class="time">14:35</span> <b>Vlak z Basmane na letiště</b> Na letišti ADB v 15:05. Jinak příměstský İZBAN. <span class="tag event">85 lir</span> <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.422733%2C27.144674" target="_blank" rel="noopener">Mapa</a></li>
-          <li><span class="time">19:00</span> <b>Odlet SunExpress do Prahy</b> Let mimo Schengen, na letišti buďte 3 hodiny před odletem, tedy nejpozději v 16:00. Vlak ve 14:35 přijíždí v 15:04, takže to vyjde s rezervou. <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.291997%2C27.14894" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> Na letišti buďte do 16:30.</span></li>
+          <li><span class="time">19:00</span> <b>Odlet SunExpress do Prahy</b> Let mimo Schengen, na letišti nejpozději v 16:00, tedy 3 hodiny před odletem. Vlak ve 14:35 přijíždí v 15:04, takže to vyjde s rezervou. <a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.291997%2C27.14894" target="_blank" rel="noopener">Mapa</a><span class="tipline"><b>Tip:</b> Na letišti nejpozději v 16:00.</span></li>
           <li><span class="time">21:00</span> <b>GoParking a cesta domů</b> Odvoz na parkoviště podle instrukcí z rezervace, doma kolem 23:00. Centrální zastávka GoParkingu je mezi příletovou halou Terminálu 1 a hotelem Courtyard by Marriott. Počítejte s 15–20 minutami na odvoz a vyzvednutí auta.</li>
         </ul>
         
@@ -599,51 +606,49 @@ ul.alts b { color: var(--ink); }
 
   <section id="ubytovani" aria-labelledby="ubyt-h">
     <h2 id="ubyt-h">Ubytování</h2>
-    <p class="intro">Skutečné ceny z Booking.com pro daná data a dva dospělé, zjištěné 23. 9. 2026, včetně daní a poplatků.</p>
+    <p class="intro">Hotely zarezervované 24. 9. 2026 za skutečně zaplacené ceny. U každého pobytu je jeden doporučený hotel: dobré hodnocení, snídaně tam, kde ji nabízejí, a rozumná cena při dobré dostupnosti k hlavním cílům.</p>
     <div class="scroll">
       <table class="stack">
         <thead><tr><th>Kde a kdy</th><th>Tipy</th><th class="num">Za noc</th><th class="num">Celkem</th></tr></thead>
         <tbody>
           <tr>
-            <td><strong>Istanbul, Sultanahmet</strong><br>8. 10.–12. 10., 4 noci</td>
-            <td>Tulip Guesthouse: celkově 9,1 z 584 recenzí, čistota 9,3, lokalita 9,6. Ulice Akbıyık kousek od Modré mešity a Hagie Sofie, pěšky k tramvaji T1. Snídaně v ceně, storno zdarma.
-              <span class="alt"><a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.005862%2C28.981321" target="_blank" rel="noopener">Mapa</a></span>
-              <span class="alt">Nejčistší z vybraných: Opatija Hotel (9,6 z 685 recenzí, čistota 9,7, lokalita 8,9, v Kumkapı asi 15 minut pěšky od památek) za 7 223 Kč. <a href="https://www.booking.com/searchresults.cs.html?ss=Sultanahmet%2C+Istanbul&amp;checkin=2026-10-08&amp;checkout=2026-10-12&amp;group_adults=2&amp;no_rooms=1&amp;selected_currency=CZK&amp;order=review_score_and_price&amp;nflt=review_score%3D90%3Bmealplan%3D1" target="_blank" rel="noopener">Otevřít stejné hledání</a></span></td>
-            <td class="num">1 424 Kč</td>
-            <td class="num">5 697 Kč</td>
+            <td><strong>Istanbul, Şehsuvar Bey, na pomezí Kadırgy a Kumkapı, pod Sultanahmetem</strong><br>8. 10.–12. 10., 4 noci</td>
+            <td>MorAgop Suites: celkově 9,0 z 66 recenzí. Zarezervováno. Snídaně v ceně a malá kuchyňka, dvě večeře se vaří na pokoji. Čtvrť Şehsuvar Bey, na pomezí Kadırgy a Kumkapı, pod Sultanahmetem: k Modré mešitě a Hipodromu asi 16 minut pěšky, k metru M2 Vezneciler asi 17 minut. Hodnocení 9,0 z 66 recenzí na Bookingu.
+              <span class="access">Dostupnost: k hlavním cílům Sultanahmet (cisterna Şerefiye, Velký bazar) 15 min pěšky (900 m); na zastávku Stanice metra Vezneciler (M2) 19 min.</span>
+              <span class="access">Jak ho najít: Turecky: Şehsuvar Bey Mah., Ördeklibakkal Sok. No:10, 34130 Fatih/İstanbul. Hotel nemá v Google Mapách vlastní záznam, navigace vede na adresu. Jste v mahalle Şehsuvar Bey na pomezí Kadırgy a Kumkapı: na stejném čísle je obchod s ořechy Ünlü Kuruyemiş, na téže ulici o kousek dál hotel a kavárna Linda Port (No. 7) a o pár desítek metrů dál rybí restaurace Kör Agop. Vchod je samostatný, bez recepce v přízemí (Booking uvádí private entrance a private check-in), velká cedule na ulici být nemusí. Telefon z rezervace si uložte do mobilu předem.</span>
+              <span class="alt"><a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=41.004114%2C28.964248" target="_blank" rel="noopener">Mapa</a></span></td>
+            <td class="num">1 436 Kč</td>
+            <td class="num">5 744 Kč</td>
           </tr>
           <tr>
             <td><strong>Izmir, Konak / Basmane</strong><br>12.–13. a 14.–15. 10.; noc 13.–14. 10. v Selçuku, kufry v úschově, 2 noci</td>
-            <td>Alves Hotel: celkově 9,0 z 364 recenzí, čistota 9,4, lokalita 8,8. Na bulváru Fevzi Paşa mezi nádražím Basmane a bazarem Kemeraltı. Snídaně v ceně. V rezervaci požádat o uschování kufrů na noc 13. 10.
-              <span class="alt"><a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.422613%2C27.142308" target="_blank" rel="noopener">Mapa</a></span>
-              <span class="alt">Hned u nádraží Basmane: Emens hotel (9,0 z 1 801 recenzí, čistota 9,2, lokalita 9,0, snídaně) za 2 941 a 2 816 Kč. <a href="https://www.booking.com/searchresults.cs.html?ss=Basmane%2C+Izmir&amp;checkin=2026-10-14&amp;checkout=2026-10-15&amp;group_adults=2&amp;no_rooms=1&amp;selected_currency=CZK&amp;order=review_score_and_price&amp;nflt=review_score%3D90" target="_blank" rel="noopener">Otevřít stejné hledání</a> <a href="https://www.booking.com/searchresults.cs.html?ss=Basmane%2C+Izmir&amp;checkin=2026-10-12&amp;checkout=2026-10-13&amp;group_adults=2&amp;no_rooms=1&amp;selected_currency=CZK&amp;order=review_score_and_price&amp;nflt=review_score%3D90" target="_blank" rel="noopener">Hledání na noci 12.–13. 10.</a></span></td>
-            <td class="num">2 520 Kč</td>
-            <td class="num">5 040 Kč</td>
+            <td>Ramses Hotel: celkově 9,6 z 27 recenzí, nový hotel, hodnocení z menšího počtu recenzí. Zarezervováno, bez snídaně. Na bulváru Mürselpaşa u nádraží Basmane, na nádraží asi 11 minut pěšky. Požádat o uschování kufrů na noc 13. 10. Hodnocení 9,6 z 27 recenzí na Bookingu a 5,0 z 91 na Google Mapách. <span class="access">Google Mapy: 5,0 z 91 recenzí, snídaně a parkování zdarma uvedené mezi vybavením. Tripadvisor hotel nevede. Planet of Hotels 9,7 z 22. Opakované stížnosti na čistotu se nikde neobjevují.</span>
+              <span class="access">Dostupnost: k hlavním cílům bazar Kemeraltı a Konak 25 min pěšky (1,8 km); na zastávku Nádraží Basmane (İZBAN, metro, vlaky) 6 min, odtud k cílům celkem asi 15 min.</span>
+              
+              <span class="alt"><a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=38.424404%2C27.148392" target="_blank" rel="noopener">Mapa</a></span></td>
+            <td class="num">1 778 Kč</td>
+            <td class="num">3 556 Kč</td>
           </tr>
           <tr>
             <td><strong>Selçuk, centrum</strong><br>13. 10.–14. 10., 1 noc</td>
-            <td>Nilya Hotel: celkově 9,3 z 345 recenzí, čistota 9,5, lokalita 9,7. 400 m od centra, doporučují ho i blogeři z Loudavým krokem. Snídaně v ceně.
-              <span class="alt"><a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.950663%2C27.36771" target="_blank" rel="noopener">Mapa</a></span>
-              <span class="alt">Se stornem zdarma: Amazon Petite Palace (9,3 z 515 recenzí, čistota 9,5, lokalita 9,7, snídaně) za 2 169 Kč. <a href="https://www.booking.com/searchresults.cs.html?ss=Selcuk&amp;checkin=2026-10-13&amp;checkout=2026-10-14&amp;group_adults=2&amp;no_rooms=1&amp;selected_currency=CZK&amp;order=review_score_and_price&amp;nflt=review_score%3D90%3Bmealplan%3D1" target="_blank" rel="noopener">Otevřít stejné hledání</a></span></td>
-            <td class="num">1 872 Kč</td>
-            <td class="num">1 872 Kč</td>
+            <td>Nilya Hotel: celkově 9,3 z 345 recenzí, čistota 9,5, lokalita 9,7. Zarezervováno. 400 m od centra, doporučují ho i blogeři z Loudavým krokem. Snídaně v ceně.
+              <span class="access">Dostupnost: k hlavním cílům centrum se mešitou İsa Bey 4 min pěšky (260 m); na zastávku Autobusové nádraží Selçuk (minibusy do Şirince a k Efesu) 5 min.</span>
+              
+              <span class="alt"><a class="tag maptag" href="https://www.google.com/maps/search/?api=1&amp;query=37.950663%2C27.36771" target="_blank" rel="noopener">Mapa</a></span></td>
+            <td class="num">1 780 Kč</td>
+            <td class="num">1 780 Kč</td>
           </tr>
         </tbody>
-        <tfoot><tr><td colspan="3">7 nocí pro dva, ceny včetně daní a poplatků</td><td class="num">12 609 Kč</td></tr></tfoot>
+        <tfoot><tr><td colspan="3">7 nocí pro dva, ceny včetně daní a poplatků</td><td class="num">11 080 Kč</td></tr></tfoot>
       </table>
     </div>
-    <p class="note">Tabulka ukazuje horní hranici. Nejlevnější hotely s hodnocením aspoň 8: Rodion Hotel, Punta Vista a Tuncay Pension. Za celý pobyt vyjde na 6 572 Kč.</p>
     <p class="totop"><a href="#obsah">Zpět na obsah</a></p>
   </section>
 
   <section id="rozpocet" aria-labelledby="rozp-h">
     <h2 id="rozp-h">Rozpočet pro dva</h2>
-    <p class="intro">Dvě hranice se liší jen ubytováním. Částky v lirách a eurech se přepočítávají aktuálním kurzem. Aktuální kurz: <span id="fxNote"></span></p>
-    <div class="seg" role="group" aria-label="Hranice rozpočtu">
-      <button type="button" data-s="0" aria-pressed="false">Spodní hranice</button>
-      <button type="button" data-s="1" aria-pressed="true">Horní hranice</button>
-    </div>
-    <p class="scenario-desc" id="scenarioDesc" aria-live="polite"></p>
+    <p class="intro">Rozpočet počítá s doporučeným ubytováním a zarezervovanými letenkami. Částky v lirách a eurech se přepočítávají aktuálním kurzem. Aktuální kurz: <span id="fxNote"></span></p>
+    <p class="note" id="odhadNote"></p>
     <div class="budget-total" aria-live="polite"><span class="sum" id="sum"></span><span class="pp" id="pp"></span></div>
     <div class="scroll" style="margin-top:18px"><table id="summary"><thead><tr><th>Kategorie</th><th class="num">Pro oba</th></tr></thead><tbody></tbody><tfoot><tr><td>Celkem</td><td class="num" id="sumFoot"></td></tr></tfoot></table></div>
 
@@ -657,7 +662,7 @@ ul.alts b { color: var(--ink); }
     
     <div class="scroll"><table class="det" id="t-doprava"></table></div>
     <h3 class="bh">Jídlo a pití</h3>
-    <p class="note" style="margin-top:0">Počítáno na 7 dní pro dva: snídaně v ubytování, oběd v lokantě nebo z ulice, večeře v obyčejné restauraci, dva čaje nebo kávy a svačiny či sladkosti přes den.</p>
+    <p class="note" style="margin-top:0">Počítáno na 7 dní pro dva: snídaně v ubytování, oběd v lokantě nebo z ulice, večeře v obyčejné restauraci a dvakrát uvařená v kuchyňce v Istanbulu, dva čaje nebo kávy a svačiny či sladkosti přes den.</p>
     <div class="scroll"><table class="det" id="t-jidlo"></table></div>
     <h3 class="bh">Vstupné</h3>
     <p class="note" style="margin-top:0">Nahoře jsou vstupy, se kterými rozpočet počítá. Dole jsou další, které můžete tlačítkem přidat, a naopak.</p>
@@ -678,10 +683,10 @@ ul.alts b { color: var(--ink); }
     <p class="progress" id="progress" aria-live="polite"></p>
     <ol class="check" id="checklist">
       <li><label><input type="checkbox" data-id="pas"><span>Zkontrolovat pasy<small>Občanka nestačí.</small></span></label></li>
-      <li><label><input type="checkbox" data-id="lety"><span>Všechny tři letenky<small>Turkish Airlines: příruční zavazadlo 8 kg v ceně. SunExpress: kupovat tarif SunEco (příruční 8 kg + odbavené zavazadlo), ne SunLight.</small></span></label></li>
-      <li><label><input type="checkbox" data-id="hotel"><span>Ubytování<small>Istanbul nejdřív. V Izmiru Alves Hotel na 12. a 14. 10. a v poznámce požádat o úschovu kufrů na noc 13. 10. U Alves Hotelu a Nilya Hotelu před rezervací ověřit storno podmínky.</small></span></label></li>
+      <li><label><input type="checkbox" data-id="lety"><span>Všechny tři letenky<small>Zarezervováno 24. 9.: Turkish Airlines (základní ekonomický tarif) na oba lety tam a SunExpress SunEco zpátky. Všechny tarify mají kabinové zavazadlo 8 kg pro každého.</small></span></label></li>
+      <li><label><input type="checkbox" data-id="hotel"><span>Ubytování<small>Zarezervováno 24. 9.: MorAgop Suites v Istanbulu, Ramses Hotel v Izmiru a Nilya Hotel v Selçuku. Ramses Hotel požádejte o úschovu kufrů na noc 13. 10.</small></span></label></li>
       <li><label><input type="checkbox" data-id="park"><span>Parkování GoParking<small>8. 10. dopoledne až 15. 10. večer, 1 120 Kč. Cena je z rezervačního formuláře a mění se, ověřte ji při rezervaci. Zjistěte i, jak dlouho trvá odvoz na terminál a jak se objednává vyzvednutí po příletu.</small></span></label></li>
-      <li><label><input type="checkbox" data-id="ins"><span>Cestovní pojištění<small>V Turecku nutné.</small></span></label></li>
+      <li><label><input type="checkbox" data-id="ins"><span>Cestovní pojištění<small>V Turecku nutné, ke kartě ho nemáme. Doporučené: ERGO SingleTrip Comfort (léčebné výlohy 25 mil. Kč, odpovědnost 6 mil., asistence 24/7 s českým lékařem). Turecko je od roku 2026 v zóně Svět bez USA, zkontrolujte, že je vybraná. Storno je připojištění navíc. Po sjednání zapište skutečnou cenu do rozpočtu.</small></span></label></li>
       <li><label><input type="checkbox" data-id="drozd"><span>Registrace v systému DROZD<small>Pět minut na webu ministerstva zahraničí.</small></span></label></li>
       <li><label><input type="checkbox" data-id="data"><span>Datový roaming Vodafone<small>V Můj Vodafone zkontrolovat, že máte zapnutý World Roaming. Balíček 3 GB na 7 dní za 299 Kč aktivovat až po přistání v Istanbulu, SMS ROAM DATA 3GB na číslo 7700.</small></span></label></li>
       <li><label><input type="checkbox" data-id="cash"><span>Trochu lir v hotovosti<small>Na minibusy a trhy. Vstupy platit kartou, u bankomatu vždy volit platbu v lirách.</small></span></label></li>
@@ -726,6 +731,7 @@ ul.alts b { color: var(--ink); }
         <ul class="tips">
           <li>Jízdenky na regionální vlaky kupte na nádraží Basmane nebo v Selçuku, přijďte 15 minut předem.</li>
           <li>V hotelu v Izmiru si nechte písemně potvrdit úschovu kufrů na noc 13. 10.</li>
+          <li>Ramses Hotel je bez snídaně. Ráno 13. a 15. 10. se nasnídáte venku, třeba boyoz nebo gevrek s čajem v okolí Basmane a Kemeraltı.</li>
           <li>Minibus k Efesu jezdí jen k dolní bráně, v říjnu od 9:00 do 17:00. Minibusy vyjíždějí z nového autobusového nádraží 15 minut před časem odjezdu a v uvedený čas staví u starého nádraží v centru.</li>
           <li>V Efesu není stín a voda u bran je několikrát dražší. Vezměte si aspoň litr a půl na osobu.</li>
           <li>Neoficiálním průvodcům u brány neplaťte, nejsou licencovaní.</li>
@@ -810,13 +816,13 @@ ul.alts b { color: var(--ink); }
 
   <footer>
     <p class="theme-foot"><button type="button" id="themeBtn" aria-label="Přepnout světlý a tmavý režim">Tmavý režim</button></p>
-    <p>Zdroje inspirace a cen: <a href="https://loudavymkrokem.cz/istanbul/" target="_blank" rel="noopener">loudavymkrokem.cz</a>, <a href="https://loudavymkrokem.cz/efes/" target="_blank" rel="noopener">loudavymkrokem.cz</a>, <a href="https://istanbulsmiskou.sk/?p=1313" target="_blank" rel="noopener">istanbulsmiskou.sk</a>, <a href="https://www.novo-monde.com/en/things-to-do-izmir-turkey/" target="_blank" rel="noopener">novo-monde.com</a>, <a href="https://mapandcamera.com" target="_blank" rel="noopener">mapandcamera.com</a>. Stav k 23. 9. 2026.</p>
-    <p>Letenky a hotely jsou orientační, ceny v lirách se kvůli inflaci často mění. Před cestou si ověřte doporučení ministerstva zahraničí a otevírací doby.</p>
+    <p>Zdroje inspirace a cen: <a href="https://loudavymkrokem.cz/istanbul/" target="_blank" rel="noopener">loudavymkrokem.cz</a>, <a href="https://loudavymkrokem.cz/efes/" target="_blank" rel="noopener">loudavymkrokem.cz</a>, <a href="https://istanbulsmiskou.sk/?p=1313" target="_blank" rel="noopener">istanbulsmiskou.sk</a>, <a href="https://www.novo-monde.com/en/things-to-do-izmir-turkey/" target="_blank" rel="noopener">novo-monde.com</a>, <a href="https://mapandcamera.com" target="_blank" rel="noopener">mapandcamera.com</a>. Stav k 24. 9. 2026.</p>
+    <p>Letenky a hotely jsou zarezervované, ceny v lirách se kvůli inflaci často mění. Před cestou si ověřte doporučení ministerstva zahraničí a otevírací doby.</p>
   </footer>
 
 </main>
 
-<script type="application/json" id="plan-data">{"travelers":2,"currency":{"local":"TRY","home":"CZK","localNamePlural":"lir","localSymbol":"₺","fallbackRates":{"EUR_CZK":24.5,"EUR_TRY":56},"rateSources":["https://api.frankfurter.dev/v1/latest?base=EUR&symbols=CZK,TRY","https://open.er-api.com/v6/latest/EUR"],"forms":["lira","liry","lir"]},"budget":{"note":"Dvě hranice se liší jen ubytováním. Částky v lirách a eurech se přepočítávají aktuálním kurzem.","categories":[{"id":"lety","label":"Letenky","items":[{"label":"Praha – Istanbul, Turkish Airlines 13:55","calc":"2 × 2 553 Kč","amount":{"czk":5106},"unverifiable":"dynamická cena z doby rezervace"},{"label":"Istanbul – Izmir, Turkish Airlines 11:00","calc":"2 × 1 033 Kč","amount":{"czk":2066},"unverifiable":"dynamická cena z doby rezervace"},{"label":"Izmir – Praha, SunExpress 19:00","calc":"2 × 1 829 Kč","amount":{"czk":3658},"unverifiable":"dynamická cena z doby rezervace"}]},{"id":"hotel","label":"Ubytování","items":[{"label":"Istanbul, 4 noci","calc":{"lower":"Rodion Hotel, 811 Kč za noc","upper":"Tulip Guesthouse, 1 424 Kč za noc"},"amount":{"lower":{"czk":3243},"upper":{"czk":5697}},"unverifiable":"dynamická cena z doby rezervace"},{"label":"Izmir, 2 noci","calc":{"lower":"Punta Vista, 1 174 Kč za noc, bez snídaně","upper":"Alves Hotel, 2 520 Kč za noc"},"amount":{"lower":{"czk":2348},"upper":{"czk":5040}},"unverifiable":"dynamická cena z doby rezervace"},{"label":"Selçuk, 1 noc","calc":{"lower":"Tuncay Pension","upper":"Nilya Hotel"},"amount":{"lower":{"czk":981},"upper":{"czk":1872}},"unverifiable":"dynamická cena z doby rezervace"},{"label":"Snídaně v Izmiru","calc":{"lower":"Punta Vista je bez snídaně: 2 rána × 2 osoby × 250 lir","upper":"v ceně hotelu"},"amount":{"lower":{"local":1000},"upper":{"czk":0}}}]},{"id":"doprava","label":"Místní doprava","items":[{"label":"Dvě karty İstanbulkart","calc":"2 × 165 lir","amount":{"local":330}},{"label":"Letiště IST – Sultanahmet a zpět (M11 + M2)","calc":"M11 42,34–47,89 lir + přestup, cca 85 lir × 2 cesty × 2 osoby","amount":{"local":340},"estimate":true},{"label":"MHD v Istanbulu, 4 dny","calc":"12 jízd × 46,20 lir × 2 osoby","amount":{"local":1109}},{"label":"Lodě a lanovka na Pierre Loti","calc":"lodě 60 + 65 + 77 lir a lanovka 2 × 46,20 lir, to je 294,40 lir na osobu × 2 osoby","amount":{"local":589}},{"label":"Letiště ADB – Izmir centrum","calc":"85 lir × 2 osoby","amount":{"local":170}},{"label":"MHD v Izmiru","calc":"odhad 4 jízdy × 40 lir × 2 osoby","amount":{"local":320},"estimate":true},{"label":"Vlak Basmane – Selçuk a zpět","calc":"130 lir × 2 cesty × 2 osoby","amount":{"local":520}},{"label":"Taxi k horní bráně Efesu","calc":"cca 12–15 € za auto, počítáno horní hranicí","amount":{"eur":15},"estimate":true},{"label":"Minibus od Efesu do Selçuku","calc":"90–100 lir, počítáno horní hranicí × 2 osoby","amount":{"local":200}},{"label":"Minibus do Şirince a zpět","calc":"100 lir × 2 cesty × 2 osoby, počítáno horní hranicí","amount":{"local":400}},{"label":"Vlak Izmir – letiště","calc":"85 lir × 2 osoby","amount":{"local":170}}]},{"id":"jidlo","label":"Jídlo a pití","intro":"Počítáno na 7 dní pro dva: snídaně v ubytování, oběd v lokantě nebo z ulice, večeře v obyčejné restauraci, dva čaje nebo kávy a svačiny či sladkosti přes den.","items":[{"label":"Obědy v lokantě nebo z ulice","calc":"350 lir × 2 osoby × 7 dní","amount":{"local":4900},"note":"Platí pro lokantu nebo jídlo z ulice. V turistické restauraci je to spíš dvojnásobek."},{"label":"Večeře v obyčejné restauraci","calc":"700 lir × 2 osoby × 7 dní","amount":{"local":9800}},{"label":"Čaj a káva přes den","calc":"120 lir × 2 osoby × 7 dní","amount":{"local":1680}},{"label":"Svačiny a dobroty","calc":"simit, baklava, lokum, džus, kaštany; cca 260 lir × 2 osoby × 7 dní","amount":{"local":3640}},{"label":"Voda, džus, sladkosti","calc":"150 lir × 7 dní","amount":{"local":1050}}]},{"id":"ostatni","label":"Ostatní","items":[{"label":"Cestovní pojištění","calc":"odhad, odpadá u pojištění ke kartě","amount":{"czk":1000},"estimate":true},{"label":"Vodafone Připojení v zahraničí 3 GB / 7 dní","calc":"299 Kč, 1 telefon, druhý se připojí přes hotspot","amount":{"czk":299}},{"label":"Palivo Hradec Králové – letiště Praha a zpět","calc":"cca 260 km × 4,5 l/100 km × 45,94 Kč/l","amount":{"czk":537}},{"label":"Parkování GoParking, 8 dní","calc":"venkovní stání, 1 120 Kč z rezervačního formuláře pro 8. 10. 10:00 – 15. 10. 21:00","amount":{"czk":1120},"unverifiable":"dynamická cena z rezervačního formuláře, ověřená ve formuláři 23. 9. 2026"}]}],"entries":[{"id":"topkapi","local":2750,"name":"Palác Topkapı s Harémem","price":"2 750 lir na osobu, kombinovaná vstupenka s Harémem","on":true,"why":"Jediný velký palác, který platíme. Půl dne zážitků."},{"id":"efes","eur":40,"name":"Efes","price":"40 € na osobu","on":true,"fixed":true,"why":"Hlavní cíl cesty."},{"id":"terasy","eur":15,"name":"Terasové domy v Efesu","price":"15 € na osobu","on":true,"why":"Podle blogerů jednoznačně stojí za příplatek."},{"id":"jan","eur":6,"name":"Bazilika sv. Jana","price":"6 € na osobu","on":false,"why":"Levné, s výhledem na Selçuk."},{"id":"serefiye","local":990,"name":"Cisterna Şerefiye","price":"990 lir na osobu","on":false,"why":"Když už cisternu, tak tuhle za polovinu ceny a s menším davem. Oficiální web uvádí 900 lir bez data, zprávy ze září 2026 mluví o 990 lirech pro cizince. Počítáme s vyšší a na místě ji ověřte. Recenze se různí, někomu přijde na to, co je uvnitř, drahá."},{"id":"hagia","eur":25,"name":"Hagia Sofia, horní galerie","price":"25 € na osobu","on":false,"why":"Jen galerie a část pod lešením, recenze rozporuplné."},{"id":"basilica","local":2250,"name":"Bazilikové cisterny","price":"2 250 lir na osobu","on":false,"why":"Hezčí než Şerefiye, ale zhruba dvakrát dražší. Denní vstupné pro cizince uvádějí dva nezávislé zdroje z roku 2026 jako 1 950 lir, ceník Istanbul s Miškou 2 250 lir. Večerní vstup 2 400–3 000 lir. Od června 2026 cisternu spravuje jiný úřad a cena se mění. V rozpočtu je opatrnější vyšší denní cena, na místě ji ověřte."},{"id":"galata","eur":30,"name":"Galatská věž","price":"30 € na osobu","on":false,"why":"Výhledy zdarma od Süleymaniye a z Pierre Loti."},{"id":"dolma","local":2000,"name":"Palác Dolmabahçe","price":"2 000 lir na osobu","on":false,"why":"Druhý palác po Topkapı už je navíc."},{"id":"muzeum","eur":10,"name":"Efeské muzeum","price":"10 € na osobu","on":false,"why":"Dobrá volba, když prší."}]},"tiers":{"lower":{"label":"Spodní hranice","description":"Nejlevnější hotely s hodnocením aspoň 8: Rodion Hotel, Punta Vista a Tuncay Pension."},"upper":{"label":"Horní hranice","description":"Hotely vybrané podle čistoty a lokality: Tulip Guesthouse, Alves Hotel a Nilya Hotel, všude se snídaní."}},"homeCurrencyLabel":"Kč","storageKey":"turecko-2026"}</script>
+<script type="application/json" id="plan-data">{"travelers":2,"currency":{"local":"TRY","home":"CZK","localNamePlural":"lir","localSymbol":"₺","fallbackRates":{"EUR_CZK":24.5,"EUR_TRY":56},"rateSources":["https://api.frankfurter.dev/v1/latest?base=EUR&symbols=CZK,TRY","https://open.er-api.com/v6/latest/EUR"],"forms":["lira","liry","lir"],"localNameIn":"lirách"},"budget":{"note":"Rozpočet počítá s doporučeným ubytováním a zarezervovanými letenkami. Částky v lirách a eurech se přepočítávají aktuálním kurzem.","categories":[{"id":"lety","label":"Letenky","items":[{"label":"Praha – Istanbul, Turkish Airlines 13:55","calc":"2 × 2 718 Kč","amount":{"czk":5436},"booked":{"date":"2026-09-24","paid":{"czk":5436},"note":"2 718 Kč na osobu"},"covers":["journeys.segments[0]"]},{"label":"Istanbul – Izmir, Turkish Airlines TK2324 13:00","calc":"2 × 1 096 Kč","amount":{"czk":2192},"booked":{"date":"2026-09-24","paid":{"czk":2192},"note":"1 096 Kč na osobu"},"covers":["journeys.segments[1]"]},{"label":"Izmir – Praha, SunExpress 19:00","calc":"2 × 2 256 Kč","amount":{"czk":4512},"booked":{"date":"2026-09-24","paid":{"czk":4512},"note":"2 256 Kč na osobu"},"covers":["journeys.segments[2]"]}]},{"id":"hotel","label":"Ubytování","items":[{"label":"Istanbul, 4 noci","calc":"MorAgop Suites, zarezervováno za 5 744 Kč","amount":{"czk":5744},"booked":{"date":"2026-09-24","paid":{"czk":5744},"note":"MorAgop Suites, 4 noci"},"covers":["hotels.stays[0]"]},{"label":"Izmir, 2 noci","calc":"Ramses Hotel, zarezervováno za 1 778 Kč za noc","amount":{"czk":3556},"booked":{"date":"2026-09-24","paid":{"czk":3556},"note":"Ramses Hotel, 2 noci (12.–13. a 14.–15. 10.) po 1 778 Kč"},"covers":["hotels.stays[1]"]},{"label":"Selçuk, 1 noc","calc":"Nilya Hotel, zarezervováno","amount":{"czk":1780},"booked":{"date":"2026-09-24","paid":{"czk":1780},"note":"Nilya Hotel, 1 noc"},"covers":["hotels.stays[2]"]},{"label":"Snídaně v Izmiru","calc":"Ramses Hotel je bez snídaně: 2 rána × 2 osoby × 250 lir","amount":{"local":1000}}]},{"id":"doprava","label":"Místní doprava","items":[{"label":"Dvě karty İstanbulkart","calc":"2 × 165 lir","amount":{"local":330}},{"label":"Letiště IST – centrum a zpět (M11 + M2)","calc":"M11 42,34–47,89 lir + přestup, cca 85 lir × 2 cesty × 2 osoby","amount":{"local":340},"estimate":true},{"label":"MHD v Istanbulu, 4 dny","calc":"12 jízd × 46,20 lir × 2 osoby","amount":{"local":1109}},{"label":"Lodě a lanovka na Pierre Loti","calc":"lodě 60 + 65 + 77 lir a lanovka 2 × 46,20 lir, to je 294,40 lir na osobu × 2 osoby","amount":{"local":589}},{"label":"Letiště ADB – Izmir centrum","calc":"85 lir × 2 osoby","amount":{"local":170}},{"label":"MHD v Izmiru","calc":"odhad 4 jízdy × 40 lir × 2 osoby","amount":{"local":320},"estimate":true},{"label":"Vlak Basmane – Selçuk a zpět","calc":"130 lir × 2 cesty × 2 osoby","amount":{"local":520}},{"label":"Taxi k horní bráně Efesu","calc":"cca 12–15 € za auto, počítáno horní hranicí","amount":{"eur":15},"estimate":true},{"label":"Minibus od Efesu do Selçuku","calc":"90–100 lir, počítáno horní hranicí × 2 osoby","amount":{"local":200}},{"label":"Minibus do Şirince a zpět","calc":"100 lir × 2 cesty × 2 osoby, počítáno horní hranicí","amount":{"local":400}},{"label":"Vlak Izmir – letiště","calc":"85 lir × 2 osoby","amount":{"local":170}},{"label":"Taxi z hotelu do Balatu","calc":"cca 360 lir za auto pro oba","amount":{"local":360}}]},{"id":"jidlo","label":"Jídlo a pití","intro":"Počítáno na 7 dní pro dva: snídaně v ubytování, oběd v lokantě nebo z ulice, večeře v obyčejné restauraci a dvakrát uvařená v kuchyňce v Istanbulu, dva čaje nebo kávy a svačiny či sladkosti přes den.","items":[{"label":"Obědy v lokantě nebo z ulice","calc":"350 lir × 2 osoby × 7 dní","amount":{"local":4900},"note":"Platí pro lokantu nebo jídlo z ulice. V turistické restauraci je to spíš dvojnásobek."},{"label":"Večeře v obyčejné restauraci","calc":"700 lir × 2 osoby × 5 večerů","amount":{"local":7000}},{"label":"Dvě večeře uvařené v kuchyňce v Istanbulu","calc":"nákup v supermarketu cca 500 lir na večeři pro dva × 2 večery (9. a 10. 10.)","amount":{"local":1000},"note":"Například kuřecí prsa, rýže, zelenina, chléb a sýr. Levné jsou řetězce BİM, A101 a ŞOK."},{"label":"Čaj a káva přes den","calc":"120 lir × 2 osoby × 7 dní","amount":{"local":1680}},{"label":"Svačiny a dobroty","calc":"simit, baklava, lokum, džus, kaštany; cca 260 lir × 2 osoby × 7 dní","amount":{"local":3640}},{"label":"Voda, džus, sladkosti","calc":"150 lir × 7 dní","amount":{"local":1050}}]},{"id":"ostatni","label":"Ostatní","items":[{"label":"Cestovní pojištění","calc":"odhad pro dva na 8 dní, pojištění ke kartě nemáme","amount":{"czk":1000},"estimate":true,"unverifiable":"cenu vydá až kalkulačka pojišťovny, po sjednání se zapíše skutečná částka"},{"label":"Vodafone Připojení v zahraničí 3 GB / 7 dní","calc":"299 Kč, 1 telefon, druhý se připojí přes hotspot","amount":{"czk":299}},{"label":"Palivo Hradec Králové – letiště Praha a zpět","calc":"cca 260 km × 4,5 l/100 km × 45,94 Kč/l","amount":{"czk":537}},{"label":"Parkování GoParking, 8 dní","calc":"venkovní stání, 1 120 Kč z rezervačního formuláře pro 8. 10. 10:00 – 15. 10. 21:00","amount":{"czk":1120},"unverifiable":"dynamická cena z rezervačního formuláře, ověřená ve formuláři 23. 9. 2026"}]}],"entries":[{"id":"topkapi","local":2750,"name":"Palác Topkapı s Harémem","price":"2 750 lir na osobu, kombinovaná vstupenka s Harémem","on":true,"why":"Jediný velký palác, který platíme. Půl dne zážitků."},{"id":"efes","eur":40,"name":"Efes","price":"40 € na osobu","on":true,"fixed":true,"why":"Hlavní cíl cesty."},{"id":"terasy","eur":15,"name":"Terasové domy v Efesu","price":"15 € na osobu","on":true,"why":"Podle blogerů jednoznačně stojí za příplatek."},{"id":"jan","eur":6,"name":"Bazilika sv. Jana","price":"6 € na osobu","on":false,"why":"Levné, s výhledem na Selçuk."},{"id":"serefiye","local":990,"name":"Cisterna Şerefiye","price":"990 lir na osobu","on":false,"why":"Když už cisternu, tak tuhle za polovinu ceny a s menším davem. Oficiální web uvádí 900 lir bez data, zprávy ze září 2026 mluví o 990 lirech pro cizince. Počítáme s vyšší a na místě ji ověřte. Recenze se různí, někomu přijde na to, co je uvnitř, drahá."},{"id":"hagia","eur":25,"name":"Hagia Sofia, horní galerie","price":"25 € na osobu","on":false,"why":"Jen galerie a část pod lešením, recenze rozporuplné."},{"id":"basilica","local":2250,"name":"Bazilikové cisterny","price":"2 250 lir na osobu","on":false,"why":"Hezčí než Şerefiye, ale zhruba dvakrát dražší. Denní vstupné pro cizince uvádějí dva nezávislé zdroje z roku 2026 jako 1 950 lir, ceník Istanbul s Miškou 2 250 lir. Večerní vstup 2 400–3 000 lir. Od června 2026 cisternu spravuje jiný úřad a cena se mění. V rozpočtu je opatrnější vyšší denní cena, na místě ji ověřte."},{"id":"galata","eur":30,"name":"Galatská věž","price":"30 € na osobu","on":false,"why":"Výhledy zdarma od Süleymaniye a z Pierre Loti."},{"id":"dolma","local":2000,"name":"Palác Dolmabahçe","price":"2 000 lir na osobu","on":false,"why":"Druhý palác po Topkapı už je navíc."},{"id":"muzeum","eur":10,"name":"Efeské muzeum","price":"10 € na osobu","on":false,"why":"Dobrá volba, když prší."}]},"homeCurrencyLabel":"Kč","storageKey":"turecko-2026"}</script>
 <script>
 /*
  * Výpočet rozpočtu. Tenhle soubor je záměrně obyčejný skript bez importů:
@@ -826,7 +832,6 @@ ul.alts b { color: var(--ink); }
 var BudgetCore = (function () {
   'use strict';
 
-  var TIERS = ['lower', 'upper'];
   // Klíče, pod kterými můžou být částky. „local“ je místní měna cesty.
   var AMOUNT_KEYS = ['local', 'home', 'czk', 'eur'];
 
@@ -894,51 +899,36 @@ var BudgetCore = (function () {
     return sum;
   }
 
-  function isTiered(amount) {
-    return Boolean(amount) && (Object.prototype.hasOwnProperty.call(amount, 'lower') ||
-      Object.prototype.hasOwnProperty.call(amount, 'upper'));
+  /** Částka položky. Rozpočet má jednu variantu, žádnou spodní a horní hranici. */
+  function itemAmount(item) {
+    return (item && item.amount) || null;
   }
 
-  /** Částka položky pro danou hranici (0 = spodní, 1 = horní). */
-  function itemAmount(item, tier) {
-    var amount = item && item.amount;
-    if (!amount) return null;
-    if (!isTiered(amount)) return amount;
-    return amount[TIERS[tier]] || amount[TIERS[1]] || amount[TIERS[0]];
-  }
-
-  /** Text výpočtu položky pro danou hranici. */
-  function itemCalc(item, tier) {
+  /** Text výpočtu položky. */
+  function itemCalc(item) {
     var calc = item && item.calc;
-    if (!calc) return '';
-    if (typeof calc === 'string') return calc;
-    return calc[TIERS[tier]] || '';
+    return typeof calc === 'string' ? calc : '';
   }
 
-  /** Má cesta dvě hranice? Když ne, přepínač se nezobrazuje. */
-  function hasTiers(trip) {
-    var cats = (trip.budget && trip.budget.categories) || [];
-    for (var i = 0; i < cats.length; i++) {
-      var items = cats[i].items || [];
-      for (var j = 0; j < items.length; j++) {
-        if (isTiered(items[j].amount)) return true;
-      }
-    }
-    return false;
+  /** Je položka odhad? Z těchhle položek se skládá nejistota celkové částky. */
+  function isEstimate(item) {
+    return Boolean(item && (item.estimate || item.unverifiable));
   }
 
   /** Jedna kategorie: řádky s částkou v domácí měně a mezisoučet. */
-  function category(cat, fx, tier) {
+  function category(cat, fx) {
     var rows = (cat.items || []).map(function (item) {
       return {
         label: item.label,
-        calc: itemCalc(item, tier),
-        estimate: Boolean(item.estimate),
-        value: amountToHome(itemAmount(item, tier), fx)
+        calc: itemCalc(item),
+        estimate: isEstimate(item),
+        booked: Boolean(item.booked),
+        value: amountToHome(itemAmount(item), fx)
       };
     });
     var sum = rows.reduce(function (a, r) { return a + r.value; }, 0);
-    return { id: cat.id, label: cat.label, intro: cat.intro || '', rows: rows, sum: sum };
+    var odhadem = rows.reduce(function (a, r) { return a + (r.estimate ? r.value : 0); }, 0);
+    return { id: cat.id, label: cat.label, intro: cat.intro || '', rows: rows, sum: sum, odhadem: odhadem };
   }
 
   /** Vstupné: cena na osobu × počet cestujících. */
@@ -973,50 +963,53 @@ var BudgetCore = (function () {
     return { list: out, sum: sum };
   }
 
-  /** Celý rozpočet pro jednu hranici. */
-  function compute(trip, fx, tier, state) {
+  /** Celý rozpočet. Jedna částka, žádné varianty. */
+  function compute(trip, fx, state) {
     var cats = ((trip.budget && trip.budget.categories) || []).map(function (c) {
-      return category(c, fx, tier);
+      return category(c, fx);
     });
     var ent = entries(trip, fx, state);
     var total = cats.reduce(function (a, c) { return a + c.sum; }, 0) + ent.sum;
-    return { categories: cats, entries: ent, total: total };
+    var odhadem = cats.reduce(function (a, c) { return a + c.odhadem; }, 0);
+    var zCeho = cats.filter(function (c) { return c.odhadem > 0; }).map(function (c) { return c.label; });
+    return { categories: cats, entries: ent, total: total, odhadem: odhadem, odhadZCeho: zCeho };
   }
 
   function round100(value) {
     return Math.round(Number(value) / 100) * 100;
   }
 
-  /** Rozsah pro úvod stránky: obě hranice se stejným vstupným. */
-  function range(trip, fx, state) {
+  /**
+   * Částka do úvodu stránky. Je jedna. Nejistota je jen v položkách, které jsou
+   * odhad (jídlo, taxi): vrací se zvlášť, ať se dá říct, z čeho vzniká.
+   */
+  function summary(trip, fx, state) {
     var travelers = Number(trip.travelers) || 1;
-    var lower = compute(trip, fx, 0, state).total;
-    var upper = compute(trip, fx, 1, state).total;
+    var result = compute(trip, fx, state);
+    var total = result.total;
     return {
-      lower: lower,
-      upper: upper,
-      lowerRounded: round100(lower),
-      upperRounded: round100(upper),
-      lowerPerPerson: round100(round100(lower) / travelers),
-      upperPerPerson: round100(round100(upper) / travelers)
+      total: total,
+      totalRounded: round100(total),
+      perPerson: round100(round100(total) / travelers),
+      odhadem: result.odhadem,
+      odhademRounded: round100(result.odhadem),
+      odhadZCeho: result.odhadZCeho
     };
   }
 
   return {
-    TIERS: TIERS,
     makeFx: makeFx,
     rateFor: rateFor,
     currencyCode: currencyCode,
     amountToHome: amountToHome,
     amountToHomeRaw: amountToHomeRaw,
-    isTiered: isTiered,
     itemAmount: itemAmount,
     itemCalc: itemCalc,
-    hasTiers: hasTiers,
+    isEstimate: isEstimate,
     entries: entries,
     compute: compute,
     round100: round100,
-    range: range
+    summary: summary
   };
 })();
 
@@ -1112,13 +1105,6 @@ var BudgetCore = (function () {
   }
 
   /* ---------- Rozpočet ---------- */
-  var TIER = 1;
-  var hasTiers = BudgetCore.hasTiers(DATA);
-  if (!hasTiers) {
-    // Přepínač se u jedné varianty ubytování negeneruje; kdyby přece jen byl, schová se.
-    var seg = document.querySelector('.seg');
-    if (seg) seg.hidden = true;
-  }
   var ENTRIES_KEY = KEY_PREFIX + '-entries';
   var entriesState = {};
   try { entriesState = JSON.parse(store.get(ENTRIES_KEY) || '{}') || {}; } catch (e) { entriesState = {}; }
@@ -1186,15 +1172,9 @@ var BudgetCore = (function () {
     }
   }
 
-  function tierDescription() {
-    var tiers = DATA.tiers || {};
-    var key = TIER === 0 ? 'lower' : 'upper';
-    return (tiers[key] && tiers[key].description) || '';
-  }
-
   function render() {
     var f = fx();
-    var result = BudgetCore.compute(DATA, f, TIER, entriesState);
+    var result = BudgetCore.compute(DATA, f, entriesState);
     result.categories.forEach(fillCategory);
     renderEntries(result.entries);
 
@@ -1223,28 +1203,22 @@ var BudgetCore = (function () {
     if (sum) sum.textContent = 'cca ' + money(BudgetCore.round100(result.total));
     var pp = document.getElementById('pp');
     if (pp) pp.textContent = TRAVELERS > 1 ? 'tj. ' + money(BudgetCore.round100(BudgetCore.round100(result.total) / TRAVELERS)) + ' na osobu' : '';
-    var desc = document.getElementById('scenarioDesc');
-    if (desc) desc.textContent = tierDescription();
+    var odhad = document.getElementById('odhadNote');
+    if (odhad) {
+      // Nejistota je jen v odhadech (jídlo, taxi). Ostatní částky jsou ověřené nebo zaplacené.
+      odhad.textContent = result.odhadem > 0
+        ? 'Z celkové částky je asi ' + money(BudgetCore.round100(result.odhadem))
+          + ' odhad (' + result.odhadZCeho.join(', ').toLowerCase() + '), zbytek jsou ověřené nebo zaplacené ceny.'
+        : '';
+    }
     var saved = document.getElementById('savedNote');
     if (saved) saved.textContent = 'Vstupné celkem ' + money(result.entries.sum) + '.';
 
-    document.querySelectorAll('.seg button').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(Number(b.dataset.s) === TIER));
-    });
-
-    var range = BudgetCore.range(DATA, f, entriesState);
+    var souhrn = BudgetCore.summary(DATA, f, entriesState);
     var heroSum = document.getElementById('heroSum');
     var heroPp = document.getElementById('heroPp');
-    if (heroSum) {
-      heroSum.textContent = hasTiers
-        ? money(range.lowerRounded) + ' až ' + money(range.upperRounded)
-        : 'cca ' + money(range.upperRounded);
-    }
-    if (heroPp) {
-      heroPp.textContent = hasTiers
-        ? money(range.lowerPerPerson) + ' až ' + money(range.upperPerPerson)
-        : 'cca ' + money(range.upperPerPerson);
-    }
+    if (heroSum) heroSum.textContent = 'cca ' + money(souhrn.totalRounded);
+    if (heroPp) heroPp.textContent = 'cca ' + money(souhrn.perPerson);
 
     var note = document.getElementById('fxNote');
     if (note) note.textContent = fxLabel();
@@ -1256,9 +1230,6 @@ var BudgetCore = (function () {
     });
   }
 
-  document.querySelectorAll('.seg button').forEach(function (b) {
-    b.addEventListener('click', function () { TIER = Number(b.dataset.s); render(); });
-  });
   render();
   fxFetch(function () { render(); });
 

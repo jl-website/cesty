@@ -39,21 +39,28 @@ a { color: var(--teal); text-underline-offset: 3px; }
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='32' viewBox='0 0 48 32'%3E%3Crect width='48' height='32' fill='%23F4EFE6'/%3E%3Cpolygon points='24,2 44,16 24,30 4,16' fill='%230E7478'/%3E%3Cpolygon points='24,8 35,16 24,24 13,16' fill='%23B8362B'/%3E%3Cpolygon points='24,12.5 29,16 24,19.5 19,16' fill='%23E4A12F'/%3E%3C/svg%3E");
   background-repeat: repeat-x; background-size: 48px 32px;
 }
-main { padding: 40px 0 60px; }
+/* Mezera mezi pruhem se vzorem a obsahem. Musí být zapsaná i s třídou .wrap,
+   jinak ji přebije .wrap { padding: 0 20px } a karta se nalepí na pruh. */
+main, main.wrap { padding: 40px 20px 60px; }
 .trips { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
 .trip { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; }
 .trip h2 { font-family: var(--serif); font-weight: 400; font-size: 1.45rem; margin: 0 0 2px; line-height: 1.2; }
 .trip .when { color: var(--muted); font-size: 0.95rem; margin: 0 0 14px; }
-.trip .links { display: flex; flex-wrap: wrap; gap: 10px; }
+/* Bez vynulovaného odsazení má odstavec s tlačítky spodní mezeru navíc a karta je nesouměrná. */
+.trip .links { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
 .trip .links a { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 16px; border-radius: 10px;
   border: 1px solid var(--line); background: var(--paper); color: var(--teal); font-weight: 600; text-decoration: none; font-size: 0.95rem; }
 .trip .links a.primary { background: var(--hero); color: var(--hero-ink); border-color: var(--hero); }
 .empty { color: var(--muted); }
-footer { color: var(--muted); font-size: 0.92rem; padding-bottom: 40px; }
+footer, footer.wrap { color: var(--muted); font-size: 0.92rem; padding: 8px 20px 40px; }
+footer p { margin: 0; }
 @media (max-width: 600px) {
   body { font-size: 16px; }
   .wrap { padding: 0 16px; }
+  main, main.wrap { padding: 28px 16px 40px; }
+  footer, footer.wrap { padding: 8px 16px 32px; }
   .hero { padding: 32px 0 26px; }
+  .trip { padding: 18px 16px; }
 }
 
 </style>
