@@ -247,6 +247,10 @@ table.det tr.sub td { font-weight: 700; border-top: 2px solid var(--line); }
   table.det tbody tr { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
   table.det td { border: 0; padding: 0; }
   table.det td:nth-child(2) { grid-column: 1 / -1; grid-row: 2; font-size: 0.88rem; }
+  /* Hladiny cen se na telefonu smrskly pod 12 px a nedaly se přečíst. */
+  .det small.guide { font-size: 12px; }
+  /* Štítky Mapa, Navigovat a Booking byly vysoké 22 px, což se prstem těžko trefuje. */
+  .tag { min-height: 34px; padding: 6px 12px; display: inline-flex; align-items: center; }
   table.det td:nth-child(3) { grid-row: 1; grid-column: 2; }
   table.det tr.sub td:nth-child(2) { display: none; }
   ul.entries li { padding: 12px 14px; }
@@ -309,6 +313,7 @@ ul.alts b { color: var(--ink); }
 .det small.guide {
   display: block;
   margin-top: 4px;
+  font-size: max(12px, 0.82rem);
   color: var(--muted);
   line-height: 1.5;
 }
@@ -807,7 +812,7 @@ ul.alts b { color: var(--ink); }
         <ul>
           <li><a href="https://mzv.gov.cz/jnp/cz/cestujeme/aktualni_doporuceni_a_varovani/turecko_bezpecnostni_upozorneni_po.html" target="_blank" rel="noopener">MZV: aktuální doporučení pro Turecko</a></li>
           <li><a href="https://mzv.gov.cz/jnp/cz/encyklopedie_statu/evropa/turecko/cestovani/index.html" target="_blank" rel="noopener">MZV: vstup do Turecka, doklady</a></li>
-          <li><a href="https://drozd.mzv.cz" target="_blank" rel="noopener">DROZD: registrace cestovatelů</a></li>
+          <li><a href="https://drozd.mzv.gov.cz" target="_blank" rel="noopener">DROZD: registrace cestovatelů</a></li>
         </ul>
       </div>
       <div class="lgroup">
