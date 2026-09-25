@@ -158,11 +158,12 @@ tfoot td { font-weight: 700; border-top: 2px solid var(--ink); border-bottom: 0;
 .est { color: var(--muted); font-size: 0.88rem; }
 
 ol.check { list-style: none; counter-reset: c; margin: 0; padding: 0; display: grid; gap: 8px; }
-ol.check li { counter-increment: c; }
-ol.check label { display: grid; grid-template-columns: 28px 24px 1fr; gap: 10px; align-items: start; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
-ol.check label::before { content: counter(c) "."; color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 600; }
-ol.check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--verde); }
-ol.check input:checked ~ span { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--verde); }
+ol.check li { counter-increment: c; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
+ol.check li::before { content: counter(c) "."; color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 600; }
+/* Vyřízené položky mají místo pořadového čísla fajfku, prázdné ::before by jinak
+   zabralo první sloupec mřížky a text by se zmáčkl do úzkého proužku. */
+ol.check.done-list li::before { display: none; }
 ol.check small { display: block; color: var(--muted); font-size: 0.9rem; }
 .progress { margin: 0 0 14px; color: var(--muted); }
 .progress strong { color: var(--verde); }
@@ -319,6 +320,13 @@ ul.alts b { color: var(--ink); }
   display: block;
   margin-top: 2px;
 }
+
+/* Co zařídit: stav z plánu. Odškrtává se v plánovači, stránka ho jen ukazuje. */
+.check li.done { color: var(--muted); }
+.check li.done .mark { color: var(--verde); font-weight: 700; text-align: center; }
+.check li.done > span { text-decoration: line-through; text-decoration-color: var(--line); }
+.check .due { font-style: normal; font-weight: 600; color: var(--pom); margin-left: 6px; font-size: .9em; }
+.check .doneat { font-style: normal; color: var(--muted); font-size: .85em; margin-left: 6px; }
 
 </style>
 </head>
@@ -719,20 +727,26 @@ ul.alts b { color: var(--ink); }
 
   <section id="rezervace" aria-labelledby="rez-h">
     <h2 id="rez-h">Co zařídit</h2>
-    <p class="intro">Seřazeno od nejdůležitějšího. Zaškrtnuté položky si stránka pamatuje jen ve vašem prohlížeči.</p>
+    <p class="intro">Seřazeno od nejdůležitějšího. Odškrtává se v plánovači, tady je vidět, jak na tom jste:
+      stav platí pro oba a na každém zařízení.</p>
     <p class="progress" id="progress" aria-live="polite"></p>
     <ol class="check" id="checklist">
-      <li><label><input type="checkbox" data-id="pas"><span>Zkontrolovat pasy<small>Občanka nestačí.</small></span></label></li>
-      <li><label><input type="checkbox" data-id="lety"><span>Všechny tři letenky<small>Zarezervováno 24. 9.: Turkish Airlines TK1774 a TK2324 (základní ekonomický tarif) a SunExpress XQ824 zpátky (tarif SunEco nebo SunValue). Všechny tarify mají kabinové zavazadlo 8 kg pro každého, u SunExpressu i odbavené zavazadlo podle rezervace.</small></span></label></li>
-      <li><label><input type="checkbox" data-id="hotel"><span>Ubytování<small>Zarezervováno 24. 9.: MorAgop Suites v Istanbulu, Ramses Hotel v Izmiru a Nilya Hotel v Selçuku. Ramses Hotel požádejte o úschovu kufrů na noc 13. 10.</small></span></label></li>
-      <li><label><input type="checkbox" data-id="park"><span>Parkování GoParking<small>8. 10. dopoledne až 15. 10. večer, 1 120 Kč. Cena je z rezervačního formuláře a mění se, ověřte ji při rezervaci. Zjistěte i, jak dlouho trvá odvoz na terminál a jak se objednává vyzvednutí po příletu.</small></span></label></li>
-      <li><label><input type="checkbox" data-id="ins"><span>Cestovní pojištění<small>V Turecku nutné, ke kartě ho nemáme. Doporučené: ERGO SingleTrip Comfort (léčebné výlohy 25 mil. Kč, odpovědnost 6 mil., asistence 24/7 s českým lékařem). Turecko je od roku 2026 v zóně Svět bez USA, zkontrolujte, že je vybraná. Storno je připojištění navíc. Po sjednání zapište skutečnou cenu do rozpočtu.</small></span></label></li>
-      <li><label><input type="checkbox" data-id="drozd"><span>Registrace v systému DROZD<small>Pět minut na webu ministerstva zahraničí.</small></span></label></li>
-      <li><label><input type="checkbox" data-id="data"><span>Datový roaming Vodafone<small>V Můj Vodafone zkontrolovat, že máte zapnutý World Roaming. Balíček 3 GB na 7 dní za 299 Kč aktivovat až po přistání v Istanbulu, SMS ROAM DATA 3GB na číslo 7700.</small></span></label></li>
-      <li><label><input type="checkbox" data-id="cash"><span>Trochu lir v hotovosti<small>Na minibusy a trhy. Vstupy platit kartou, u bankomatu vždy volit platbu v lirách.</small></span></label></li>
-      <li><label><input type="checkbox" data-id="jizdenka-selcuk"><span>Na místě: zpáteční jízdenka ze Selçuku<small>13. 10. na nádraží Basmane kupte spolu s jízdenkou do Selçuku rovnou i zpáteční Selçuk → Basmane na 14. 10. (vlak v 15:36).</small></span></label></li>
-      <li><label><input type="checkbox" data-id="bottle"><span>Láhev na vodu a šátek<small>Voda do Efesu, šátek do mešit, ušetří frontu na půjčovnu.</small></span></label></li>
+      <li data-id="pas"><span>Zkontrolovat pasy <em class="due">do 1. 10.</em><small>Občanka nestačí.</small></span></li>
+      <li data-id="park"><span>Parkování GoParking <em class="due">do 1. 10.</em><small>8. 10. dopoledne až 15. 10. večer, 1 120 Kč. Cena je z rezervačního formuláře a mění se, ověřte ji při rezervaci. Zjistěte i, jak dlouho trvá odvoz na terminál a jak se objednává vyzvednutí po příletu.</small></span></li>
+      <li data-id="ins"><span>Cestovní pojištění <em class="due">do 7. 10.</em><small>V Turecku nutné, ke kartě ho nemáme. Doporučené: ERGO SingleTrip Comfort (léčebné výlohy 25 mil. Kč, odpovědnost 6 mil., asistence 24/7 s českým lékařem). Turecko je od roku 2026 v zóně Svět bez USA, zkontrolujte, že je vybraná. Storno je připojištění navíc. Po sjednání zapište skutečnou cenu do rozpočtu.</small></span></li>
+      <li data-id="drozd"><span>Registrace v systému DROZD <em class="due">do 7. 10.</em><small>Pět minut na webu ministerstva zahraničí.</small></span></li>
+      <li data-id="data"><span>Datový roaming Vodafone <em class="due">před odletem, balíček až po přistání</em><small>V Můj Vodafone zkontrolovat, že máte zapnutý World Roaming. Balíček 3 GB na 7 dní za 299 Kč aktivovat až po přistání v Istanbulu, SMS ROAM DATA 3GB na číslo 7700.</small></span></li>
+      <li data-id="cash"><span>Trochu lir v hotovosti <em class="due">před odletem</em><small>Na minibusy a trhy. Vstupy platit kartou, u bankomatu vždy volit platbu v lirách.</small></span></li>
+      <li data-id="jizdenka-selcuk"><span>Na místě: zpáteční jízdenka ze Selçuku <em class="due">na místě 13. 10.</em><small>13. 10. na nádraží Basmane kupte spolu s jízdenkou do Selçuku rovnou i zpáteční Selçuk → Basmane na 14. 10. (vlak v 15:36).</small></span></li>
+      <li data-id="bottle"><span>Láhev na vodu a šátek <em class="due">před balením</em><small>Voda do Efesu, šátek do mešit, ušetří frontu na půjčovnu.</small></span></li>
     </ol>
+    <details class="more">
+      <summary>Vyřízeno (2)</summary>
+      <ol class="check done-list">
+      <li class="done" data-id="lety"><span class="mark" aria-hidden="true">✓</span><span>Všechny tři letenky<em class="doneat">hotovo 24. 9.</em><small>Zarezervováno 24. 9.: Turkish Airlines TK1774 a TK2324 (základní ekonomický tarif) a SunExpress XQ824 zpátky (tarif SunEco nebo SunValue). Všechny tarify mají kabinové zavazadlo 8 kg pro každého, u SunExpressu i odbavené zavazadlo podle rezervace.</small></span></li>
+      <li class="done" data-id="hotel"><span class="mark" aria-hidden="true">✓</span><span>Ubytování<em class="doneat">hotovo 24. 9.</em><small>Zarezervováno 24. 9.: MorAgop Suites v Istanbulu, Ramses Hotel v Izmiru a Nilya Hotel v Selçuku. Ramses Hotel požádejte o úschovu kufrů na noc 13. 10.</small></span></li>
+      </ol>
+    </details>
     <p class="totop"><a href="#obsah">Zpět na obsah</a></p>
   </section>
 
@@ -1351,25 +1365,19 @@ var BudgetCore = (function () {
   fxFetch(function () { render(); });
 
   /* ---------- Co zařídit ---------- */
-  var CHECK_KEY = KEY_PREFIX + '-checklist';
-  var checkState = {};
-  try { checkState = JSON.parse(store.get(CHECK_KEY) || '{}') || {}; } catch (e) { checkState = {}; }
-  var boxes = document.querySelectorAll('#checklist input[type="checkbox"]');
-  var progress = document.getElementById('progress');
-  function updateProgress() {
-    var done = 0;
-    boxes.forEach(function (b) { if (b.checked) done++; });
-    if (progress) progress.innerHTML = 'Hotovo <strong>' + done + '</strong> z ' + boxes.length;
-  }
-  boxes.forEach(function (b) {
-    b.checked = Boolean(checkState[b.dataset.id]);
-    b.addEventListener('change', function () {
-      checkState[b.dataset.id] = b.checked;
-      store.set(CHECK_KEY, JSON.stringify(checkState));
-      updateProgress();
-    });
-  });
-  updateProgress();
+  // Stránka jen ukazuje stav z plánu: odškrtává se ve Studiu a stav je v datech cesty.
+  // Dřív tu bylo zaškrtávátko ukládané do localStorage, jenže to má každá adresa i každé
+  // zařízení vlastní, takže se odškrtnuté nikam nepřeneslo a druhý cestující o něm nevěděl.
+  (function () {
+    var zbyva = document.querySelectorAll('#checklist li').length;
+    var hotovo = document.querySelectorAll('#rezervace li.done').length;
+    var progress = document.getElementById('progress');
+    if (!progress || !(zbyva + hotovo)) return;
+    progress.innerHTML = zbyva === 0
+      ? 'Hotovo všech <strong>' + hotovo + '</strong>.'
+      : 'Zbývá <strong>' + zbyva + '</strong> z ' + (zbyva + hotovo)
+        + (hotovo ? ' · ' + hotovo + ' vyřízeno' : '');
+  })();
 
   /* ---------- Kotvy v navigaci ---------- */
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
