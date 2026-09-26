@@ -183,9 +183,10 @@ li.transfer .item {
 li.transfer .item .chip { font-style: normal; }
 p.leaveat { margin: 4px 0 0; font-weight: 600; }
 
-/* Počasí v horní liště: teplota a ikona vedle hodin, pod lištou varování na déšť. */
-.top-prava { display: flex; align-items: flex-start; gap: 14px; }
-.pocasi-ted { display: flex; align-items: center; gap: 6px; padding-top: 2px; white-space: nowrap; }
+/* Počasí v horní liště pod hodinami: na telefonu jinak ukrajovalo šířku titulku
+   a text pod ním se lámal na tři řádky. Pod lištou je varování na déšť. */
+.top-prava { display: grid; justify-items: end; gap: 2px; }
+.pocasi-ted { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
 .pocasi-ted b { font-size: 1.05rem; }
 .pocasi-obrazek { display: inline-flex; }
 .pocasi-ikona { width: 22px; height: 22px; }

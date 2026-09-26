@@ -338,19 +338,32 @@ ul.alts b { color: var(--ink); }
 .check .doneat { font-style: normal; color: var(--muted); font-size: .85em; margin-left: 6px; }
 
 /* Počasí na celý pobyt: pruh pod úvodem. Dny se vejdou na jeden řádek, na mobilu se posouvá. */
-.pocasi-pruh { margin: 40px 0 26px; }  /* stejná mezera jako u upozornění */
+/* Pruh je doplněk, ne plná sekce: nedědí velké odsazení sekcí. */
+.pocasi-pruh { padding: 0; margin: 40px 0 10px; }
 .pocasi-pruh h2 { font-size: 1.05rem; margin: 0 0 12px; }
 .pocasi-dny { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; }
+/* Dny se rozloží rovnoměrně, ať pruh drží tvar; na úzkém displeji se posouvá. */
 .pocasi-den {
-  display: grid; justify-items: center; gap: 3px; min-width: 92px; padding: 10px 8px;
+  /* Bez align-content: start se řádky rozprostřou po celé výšce karty. Karty jsou
+     stejně vysoké (dny z průměru mají řádek navíc) a nezůstává v nich prázdno. */
+  display: grid; justify-items: center; gap: 4px;
+  /* Osm dní se musí vejít do šířky obsahu (880 px), jinak pruh na počítači ujíždí. */
+  flex: 1 1 0; min-width: 92px; padding: 12px 6px;
   border: 1px solid var(--line); border-radius: 12px; background: var(--surface); text-align: center;
+  /* Řádky pevně: den, město, ikona, teplota, poznámka. Dny z průměru nemají ikonu,
+     a bez pevné mřížky by se jim teploty a poznámky posunuly o řádek výš. */
+  grid-template-rows: auto auto 28px auto auto;
 }
 .pocasi-den b { font-size: .9rem; }
 .pocasi-den small { color: var(--muted); font-size: .8rem; line-height: 1.3; }
 .pocasi-den .pocasi-mesto { font-size: .8rem; }
-.pocasi-den .pocasi-teplota { font-weight: 600; font-size: .95rem; }
-.pocasi-den .pocasi-ikona { width: 26px; height: 26px; }
-.pocasi-den .pocasi-ikona.prazdna { display: block; }
+.pocasi-den .pocasi-teplota { font-weight: 600; font-size: .98rem; white-space: nowrap; }
+.pocasi-den .pocasi-teplota .min { font-weight: 400; color: var(--muted); }
+.pocasi-den small.mokro { color: var(--teal); font-weight: 600; }
+.pocasi-den .pocasi-ikona { width: 26px; height: 26px; align-self: center; }
+/* Dny z průměru ikonu nemají (průměr neříká, jestli bylo jasno). Místo po ní zůstane
+   prázdné, aby teploty pod sebou seděly na jedné lince. */
+.pocasi-den .pocasi-ikona.prazdna { display: block; width: 26px; height: 26px; }
 .pocasi-den.prumer { border-style: dashed; }
 .pocasi-pozn { color: var(--muted); font-size: .86rem; margin: 8px 0 0; }
 
@@ -1684,9 +1697,15 @@ var BudgetCore = (function () {
       if (!dny.length) return;
       var html = dny.map(function (d) {
         var stav = d.predpoved ? window.Pocasi.podleKodu(d.kod) : { klic: 'neznamo', popis: '' };
-        var teploty = window.Pocasi.stupne(d.tmax) + (typeof d.tmin === 'number' ? ' / ' + Math.round(d.tmin) + '°' : '');
+        // „21 / 13 °C“: nejdřív denní maximum, za lomítkem noční minimum slabším písmem.
+        var teploty = typeof d.tmax === 'number' ? Math.round(d.tmax) : '—';
+        teploty = teploty + (typeof d.tmin === 'number' ? ' <span class="min">/ ' + Math.round(d.tmin) + '</span>' : '') + ' °C';
+        // Šance na déšť se píše vždycky, i když je nulová: „déšť 5 %“ je informace,
+        // prázdné místo v kartě není. U vyšší šance se zvýrazní.
         var dest = '';
-        if (d.predpoved && typeof d.dest === 'number' && d.dest >= 30) dest = '<small>déšť ' + d.dest + ' %</small>';
+        if (d.predpoved && typeof d.dest === 'number') {
+          dest = '<small' + (d.dest >= 40 ? ' class="mokro"' : '') + '>déšť ' + d.dest + ' %</small>';
+        }
         if (!d.predpoved && typeof d.destivychLet === 'number' && d.zLet) {
           dest = '<small>pršelo ' + d.destivychLet + ' z ' + d.zLet + ' let</small>';
         }
