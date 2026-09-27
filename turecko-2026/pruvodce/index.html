@@ -208,11 +208,12 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
       <p class="status" id="tripStatus"></p>
     </div>
     <div class="top-prava">
+      <div class="clock" aria-live="off">v Turecku<br><b id="localTime">--:--</b></div>
       <div class="pocasi-ted" id="pocasiTed" hidden>
+        <small class="pocasi-kdy" id="pocasiKdy" hidden></small>
         <span class="pocasi-obrazek" id="pocasiIkona"></span>
         <b id="pocasiTeplota">—</b>
       </div>
-      <div class="clock" aria-live="off">v Turecku<br><b id="localTime">--:--</b></div>
     </div>
   </div>
   <p class="pocasi-varovani wrap" id="pocasiVarovani" hidden></p>
@@ -1034,12 +1035,14 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
       // vidět přímo v liště: popisek u myši na telefonu nikdo neuvidí (nález 27. 9. 2026).
       var kdy = document.getElementById('pocasiKdy');
       if (jeDnesVCeste) {
-        kdy.hidden = true;
+        if (kdy) kdy.hidden = true;
         document.getElementById('pocasiTeplota').textContent = window.Pocasi.stupne(teplota);
       } else {
         var d = new Date(mistoDne + 'T12:00:00');
-        kdy.textContent = d.getDate() + '. ' + (d.getMonth() + 1) + '.';
-        kdy.hidden = false;
+        if (kdy) {
+          kdy.textContent = d.getDate() + '. ' + (d.getMonth() + 1) + '.';
+          kdy.hidden = false;
+        }
         var min = den && typeof den.tmin === 'number' ? ' / ' + Math.round(den.tmin) : '';
         document.getElementById('pocasiTeplota').textContent = Math.round(teplota) + min + ' °C';
       }
@@ -1061,7 +1064,9 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
   markToday();
   renderAll();
   tick();
-  vypisPocasi();
+  // Počasí je doplněk. Kdyby na něm cokoli spadlo, zbytek průvodce (včetně hodin níž)
+  // musí běžet dál — dřív takový pád zastavil celé spuštění stránky.
+  try { vypisPocasi(); } catch (e) { /* průvodce funguje i bez počasí */ }
   setInterval(function () { tick(); if (current === todayIdx) renderAll(); }, 30000);
 })();
 

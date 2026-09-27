@@ -1682,7 +1682,9 @@ var BudgetCore = (function () {
   /* ---------- Počasí na celý pobyt ----------
      Předpověď platí asi 16 dní dopředu; na vzdálenější dny se ukáže dlouhodobý průměr
      z dat cesty a je to u něj napsané. Načítá se při každém otevření stránky. */
-  (function pocasi() {
+  // Počasí je doplněk: kdyby na něm cokoli spadlo, zbytek plánu musí fungovat dál.
+  try { pocasi(); } catch (e) { /* plán funguje i bez počasí */ }
+  function pocasi() {
     var W = DATA.weather;
     var pruh = document.getElementById('pocasiPruh');
     if (!W || !pruh || !window.Pocasi) return;
@@ -1756,7 +1758,7 @@ var BudgetCore = (function () {
       }
       vykresli(dny, pozn);
     });
-  }());
+  }
 })();
 
 </script>
