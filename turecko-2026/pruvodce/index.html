@@ -187,6 +187,8 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
    a text pod ním se lámal na tři řádky. Pod lištou je varování na déšť. */
 .top-prava { display: grid; justify-items: end; gap: 2px; }
 .pocasi-ted { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+/* Mimo termín cesty je u teploty den, ke kterému platí. */
+.pocasi-kdy { opacity: .75; font-size: .85rem; }
 .pocasi-ted b { font-size: 1.05rem; }
 .pocasi-obrazek { display: inline-flex; }
 .pocasi-ikona { width: 22px; height: 22px; }
@@ -206,11 +208,11 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
       <p class="status" id="tripStatus"></p>
     </div>
     <div class="top-prava">
-      <div class="clock" aria-live="off">v Turecku<br><b id="localTime">--:--</b></div>
       <div class="pocasi-ted" id="pocasiTed" hidden>
         <span class="pocasi-obrazek" id="pocasiIkona"></span>
         <b id="pocasiTeplota">—</b>
       </div>
+      <div class="clock" aria-live="off">v Turecku<br><b id="localTime">--:--</b></div>
     </div>
   </div>
   <p class="pocasi-varovani wrap" id="pocasiVarovani" hidden></p>
@@ -1028,7 +1030,19 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
       }
       var stav = window.Pocasi.podleKodu(kod);
       document.getElementById('pocasiIkona').innerHTML = window.Pocasi.ikona(stav.klic);
-      document.getElementById('pocasiTeplota').textContent = window.Pocasi.stupne(teplota);
+      // Mimo termín cesty to není teplota „teď“, ale předpověď na první den. Musí to být
+      // vidět přímo v liště: popisek u myši na telefonu nikdo neuvidí (nález 27. 9. 2026).
+      var kdy = document.getElementById('pocasiKdy');
+      if (jeDnesVCeste) {
+        kdy.hidden = true;
+        document.getElementById('pocasiTeplota').textContent = window.Pocasi.stupne(teplota);
+      } else {
+        var d = new Date(mistoDne + 'T12:00:00');
+        kdy.textContent = d.getDate() + '. ' + (d.getMonth() + 1) + '.';
+        kdy.hidden = false;
+        var min = den && typeof den.tmin === 'number' ? ' / ' + Math.round(den.tmin) : '';
+        document.getElementById('pocasiTeplota').textContent = Math.round(teplota) + min + ' °C';
+      }
       box.hidden = false;
       var kde = den && den.city ? den.city : '';
       box.title = [stav.popis, jeDnesVCeste ? '' : (kde ? 'v místě prvního dne (' + kde + ')' : 'v cíli cesty'),
