@@ -344,14 +344,14 @@ ul.alts b { color: var(--ink); }
 .pocasi-dny { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; }
 /* Dny se rozloží rovnoměrně, ať pruh drží tvar; na úzkém displeji se posouvá. */
 .pocasi-den {
-  /* Bez align-content: start se řádky rozprostřou po celé výšce karty. Karty mají
-     stejnou výšku i tehdy, když na den ještě předpověď není. */
+  /* Bez align-content: start se řádky rozprostřou po celé výšce karty. Karty jsou
+     stejně vysoké (dny z průměru mají řádek navíc) a nezůstává v nich prázdno. */
   display: grid; justify-items: center; gap: 4px;
   /* Osm dní se musí vejít do šířky obsahu (880 px), jinak pruh na počítači ujíždí. */
   flex: 1 1 0; min-width: 92px; padding: 12px 6px;
   border: 1px solid var(--line); border-radius: 12px; background: var(--surface); text-align: center;
-  /* Řádky pevně: den, město, ikona, teplota, poznámka. Dny bez předpovědi ikonu
-     nemají, a bez pevné mřížky by se jim teploty a poznámky posunuly o řádek výš. */
+  /* Řádky pevně: den, město, ikona, teplota, poznámka. Dny z průměru nemají ikonu,
+     a bez pevné mřížky by se jim teploty a poznámky posunuly o řádek výš. */
   grid-template-rows: auto auto 28px auto auto;
 }
 .pocasi-den b { font-size: .9rem; }
@@ -361,11 +361,10 @@ ul.alts b { color: var(--ink); }
 .pocasi-den .pocasi-teplota .min { font-weight: 400; color: var(--muted); }
 .pocasi-den small.mokro { color: var(--teal); font-weight: 600; }
 .pocasi-den .pocasi-ikona { width: 26px; height: 26px; align-self: center; }
-/* Dny, na které předpověď ještě nedosáhne, ikonu nemají. Místo po ní zůstane prázdné,
-   aby teploty pod sebou seděly na jedné lince. */
+/* Dny z průměru ikonu nemají (průměr neříká, jestli bylo jasno). Místo po ní zůstane
+   prázdné, aby teploty pod sebou seděly na jedné lince. */
 .pocasi-den .pocasi-ikona.prazdna { display: block; width: 26px; height: 26px; }
-.pocasi-den.ceka { border-style: dashed; }
-.pocasi-den.ceka .pocasi-teplota { color: var(--muted); }
+.pocasi-den.prumer { border-style: dashed; }
 .pocasi-pozn { color: var(--muted); font-size: .86rem; margin: 8px 0 0; }
 
 /* Na úzkém displeji stejně jako .callout výš: menší mezera nad obsahem. */
@@ -930,7 +929,7 @@ ul.alts b { color: var(--ink); }
 
 </main>
 
-<script type="application/json" id="plan-data">{"travelers":2,"currency":{"local":"TRY","home":"CZK","localNamePlural":"lir","localSymbol":"₺","fallbackRates":{"EUR_CZK":24.5,"EUR_TRY":56},"rateSources":["https://api.frankfurter.dev/v1/latest?base=EUR&symbols=CZK,TRY","https://open.er-api.com/v6/latest/EUR"],"forms":["lira","liry","lir"],"localNameIn":"lirách"},"budget":{"note":"Rozpočet počítá s doporučeným ubytováním a zarezervovanými letenkami. Částky v lirách a eurech se přepočítávají aktuálním kurzem.","categories":[{"id":"lety","label":"Letenky","items":[{"label":"Praha – Istanbul, Turkish Airlines 13:55","calc":"2 × 2 718 Kč","amount":{"czk":5436},"booked":{"date":"2026-09-24","paid":{"czk":5436},"note":"2 718 Kč na osobu"},"covers":["journeys.segments[0]"]},{"label":"Istanbul – Izmir, Turkish Airlines TK2324 13:00","calc":"2 × 1 096 Kč","amount":{"czk":2192},"booked":{"date":"2026-09-24","paid":{"czk":2192},"note":"1 096 Kč na osobu"},"covers":["journeys.segments[1]"]},{"label":"Izmir – Praha, SunExpress 19:00","calc":"2 × 2 256 Kč","amount":{"czk":4512},"booked":{"date":"2026-09-24","paid":{"czk":4512},"note":"2 256 Kč na osobu"},"covers":["journeys.segments[2]"]}]},{"id":"hotel","label":"Ubytování","items":[{"label":"Istanbul, 4 noci","calc":"MorAgop Suites, zarezervováno za 5 744 Kč","amount":{"czk":5744},"booked":{"date":"2026-09-24","paid":{"czk":5744},"note":"MorAgop Suites, 4 noci"},"covers":["hotels.stays[0]"]},{"label":"Izmir, 2 noci","calc":"Ramses Hotel, zarezervováno za 1 778 Kč za noc","amount":{"czk":3556},"booked":{"date":"2026-09-24","paid":{"czk":3556},"note":"Ramses Hotel, 2 noci (12.–13. a 14.–15. 10.) po 1 778 Kč"},"covers":["hotels.stays[1]"]},{"label":"Selçuk, 1 noc","calc":"Nilya Hotel, zarezervováno","amount":{"czk":1780},"booked":{"date":"2026-09-24","paid":{"czk":1780},"note":"Nilya Hotel, 1 noc"},"covers":["hotels.stays[2]"]},{"label":"Snídaně v Izmiru","calc":"Ramses Hotel je bez snídaně: 2 rána × 2 osoby × 100 lir","amount":{"local":400},"note":"Úsporně asi 40 lir na osobu (dva boyozy z pekárny u pultu po 20 lirách), běžně kolem 100 lir (boyoz nebo gevrek s čajem). Snídaňový talíř v podniku stojí zhruba 190–400 lir, tradiční turecká snídaně kolem 550 lir na osobu. V turistických místech stojí boyoz až 30 lir.","priceGuide":{"unit":"osobu a ráno","thrifty":40,"typical":100,"tooMuch":150,"counted":"typical","note":"Úsporně dva boyozy z pekárny u pultu po 20 lirách, běžně boyoz nebo gevrek s čajem. I v turistickém místě s čajem v kavárně to vyjde nejvýš na 120 lir, takže od 150 lir výš je jednoduchá snídaně předražená. Snídaňový talíř v podniku je jiná věc a stojí kolem 190–400 lir. Pekárna je i ta bezpečnější varianta: peče se průběžně a je vidět, co si berete."}}]},{"id":"doprava","label":"Místní doprava","items":[{"label":"Dvě karty İstanbulkart","calc":"2 × 165 lir","amount":{"local":330}},{"label":"Letiště IST – centrum a zpět (M11 + M2)","calc":"M11 42,34–47,89 lir + přestup, cca 85 lir × 2 cesty × 2 osoby","amount":{"local":340},"estimate":true},{"label":"MHD v Istanbulu mimo letiště, lodě z položky níže a taxi","calc":"na osobu: zpáteční loď z Üsküdaru cca 60 lir a 7 jízd tramvají × 46,20 lir, to je 383,40 lir × 2 osoby","amount":{"local":767},"note":"Podle programu: loď z Üsküdaru zpět a T1 Karaköy → hotel (10. 10.), T5 Balat → Eyüp a T1 Eminönü → hotel (11. 10.). Nepovinně T1 ze Süleymaniye (9. 10.) a T1 do Eminönü (ráno 10. 10.). K tomu rezerva 2 jízdy. Přestup do dvou hodin, třeba T1 hned po lodi, je levnější, rozpočet počítá plné jízdné."},{"label":"Lodě a lanovka na Pierre Loti","calc":"lodě 60 + 65 + 77 lir a lanovka 2 × 46,20 lir, to je 294,40 lir na osobu × 2 osoby","amount":{"local":589}},{"label":"Letiště ADB – Izmir centrum","calc":"85 lir × 2 osoby","amount":{"local":170}},{"label":"MHD v Izmiru","calc":"odhad 4 jízdy × 40 lir × 2 osoby","amount":{"local":320},"estimate":true},{"label":"Vlak Basmane – Selçuk a zpět","calc":"120 lir × 2 cesty × 2 osoby","amount":{"local":480}},{"label":"Taxi k horní bráně Efesu","calc":"cca 670 lir za auto pro oba","amount":{"local":670},"estimate":true,"priceGuide":{"unit":"jízdu pro dva","localsPay":210,"thrifty":450,"typical":670,"tooMuch":900,"counted":"typical","note":"Úsporně předem domluvený transfer za 8 €, běžně 12 €. Od 900 lir (16 €) výš je to přepálené a hlášené ceny 40–50 € jsou kořist. Taxametr ukáže minimální jízdné 210 lir: tolik platí místní a od toho se dá smlouvat, ale jako cizinec na to zpravidla nedosáhnete."}},{"label":"Minibus od Efesu do Selçuku","calc":"90–100 lir, počítáno horní hranicí × 2 osoby","amount":{"local":200}},{"label":"Minibus do Şirince a zpět","calc":"100 lir × 2 cesty × 2 osoby, počítáno horní hranicí","amount":{"local":400}},{"label":"Vlak Izmir – letiště","calc":"85 lir × 2 osoby","amount":{"local":170}},{"label":"Taxi z hotelu do Balatu","calc":"cca 360 lir za auto pro oba","amount":{"local":360},"priceGuide":{"unit":"jízdu pro dva","typical":360,"tooMuch":600,"counted":"typical","note":"Objednané přes BiTaksi jede taxi na taxametr, takže platíte tarif jako místní: nástupní 71,94 lir plus 47,92 lir za km, minimálně 230 lir. Od 600 lir výš řidič taxametr nezapnul — trvejte na něm, nebo vystupte."}}]},{"id":"jidlo","label":"Jídlo a pití","intro":"Počítáno na 7 dní pro dva: snídaně v ubytování, oběd v lokantě nebo z ulice, večeře v obyčejné restauraci, dva čaje nebo kávy, svačiny či sladkosti přes den a balená voda. Každá věc je v rozpočtu jen jednou. Částky jsou pro běžné jídlo, u každé položky je napsané i kolik to stojí, když se jí úsporně, a kolik je už moc.","items":[{"label":"Obědy","calc":"400 lir × 2 osoby × 7 dní","amount":{"local":5600},"note":"Kdo chce ušetřit, koupí si jídlo v supermarketu nebo v pekárně. Lokanta s denním menu je jistota: vidíte, co si berete, a vaří se tam průběžně. Běžná cena 400 lir je střed mezi plným talířem v lokantě (kolem 350 lir) a jídlem v levné restauraci (500 lir), protože oběd v lokantě potvrzuje zatím jen jeden zdroj.","priceGuide":{"unit":"osobu a oběd","thrifty":200,"typical":400,"tooMuch":600,"counted":"typical","note":"Úsporně nákup v supermarketu (BİM, A101, ŞOK) nebo pekárna, běžně plný talíř v lokantě nebo levná restaurace (350–500 lir). Od 600 lir výš už jste v turistické restauraci, v Sultanahmetu tam hlavní jídlo stojí 600–1 500 lir. Jídlo z ulice vyjde podobně jako lokanta, ale není to způsob, jak ušetřit bez rizika."}},{"label":"Večeře","calc":"700 lir × 2 osoby × 7 večerů","amount":{"local":9800},"note":"Úsporně 200–350 lir na osobu: lokanta nebo levná restaurace (kolem 500 lir za jídlo), případně nákup v obchodě, kde večeře pro dva vyjde na 400–500 lir. Běžně 700 lir na osobu v obyčejné restauraci. V turistické restauraci v Sultanahmetu stojí hlavní jídlo 600–1 500 lir.","priceGuide":{"unit":"osobu a večeři","thrifty":300,"typical":700,"tooMuch":1000,"counted":"typical","note":"Úsporně večeře z obchodu (pro dva 400–500 lir) nebo lokanta, běžně obyčejná restaurace. Nad 1 000 lir za hlavní jídlo je to turistická restaurace v Sultanahmetu."}},{"label":"Čaj a káva přes den","calc":"120 lir × 2 osoby × 7 dní","amount":{"local":1680},"note":"Úsporně dva čaje po 20–40 lir, běžně čaj a turecká káva (80–150 lir). Latte v kavárně stojí 150–250 lir.","priceGuide":{"unit":"osobu a den","thrifty":40,"typical":120,"tooMuch":250,"counted":"typical","note":"Úsporně dva turecké čaje (20–40 lir za sklenku), běžně čaj a turecká káva (80–150 lir). Latte v kavárně stojí 150–250 lir, za víc už to nemá cenu."}},{"label":"Svačiny a dobroty","calc":"simit, baklava, lokum, džus, kaštany; cca 260 lir × 2 osoby × 7 dní","amount":{"local":3640},"priceGuide":{"unit":"osobu a den","thrifty":150,"typical":260,"tooMuch":400,"counted":"typical","note":"Úsporně simit z pekárny nebo z obchodu, běžně k tomu baklava, lokum nebo džus (džus z vozíku 80–120 lir). Ceny kusů jsou v ceníku jídla."}},{"label":"Balená voda","calc":"2 lahve 0,5 l na osobu a den × 2 osoby × 7 dní × cca 15 lir","amount":{"local":420},"estimate":true,"note":"V BİM nebo A101 stojí půllitrová voda kolem 4 lir, z vozíku nebo v restauraci 20–30 lir. Počítáno středem, z kohoutku se voda nepije.","priceGuide":{"unit":"lahev 0,5 l","thrifty":4,"typical":15,"tooMuch":30,"counted":"typical","note":"V BİM nebo A101 kolem 4 lir, v běžném obchodě zhruba 15 lir, z vozíku a v restauraci 20–30 lir."}}]},{"id":"ostatni","label":"Ostatní","items":[{"label":"Cestovní pojištění","calc":"odhad pro dva na 8 dní, pojištění ke kartě nemáme","amount":{"czk":1000},"estimate":true,"unverifiable":"cenu vydá až kalkulačka pojišťovny, po sjednání se zapíše skutečná částka"},{"label":"Vodafone Připojení v zahraničí 3 GB / 7 dní","calc":"299 Kč, 1 telefon, druhý se připojí přes hotspot","amount":{"czk":299}},{"label":"Palivo Hradec Králové – letiště Praha a zpět","calc":"cca 260 km × 4,5 l/100 km × 45,94 Kč/l","amount":{"czk":537}},{"label":"Parkování GoParking, 8 dní","calc":"venkovní stání, 1 120 Kč z rezervačního formuláře pro 8. 10. 11:00 – 15. 10. 21:00","amount":{"czk":1120},"unverifiable":"dynamická cena z rezervačního formuláře, ověřená ve formuláři 23. 9. 2026"}]}],"entries":[{"id":"topkapi","local":2750,"name":"Palác Topkapı s Harémem","price":"2 750 lir na osobu, kombinovaná vstupenka s Harémem","on":true,"why":"Jediný velký palác, který platíme. Půl dne zážitků."},{"id":"efes","eur":40,"name":"Efes","price":"40 € na osobu","on":true,"fixed":true,"why":"Hlavní cíl cesty."},{"id":"terasy","eur":15,"name":"Terasové domy v Efesu","price":"15 € na osobu","on":true,"why":"Podle blogerů jednoznačně stojí za příplatek."},{"id":"jan","eur":6,"name":"Bazilika sv. Jana","price":"6 € na osobu","on":false,"why":"Levné, s výhledem na Selçuk."},{"id":"serefiye","local":990,"name":"Cisterna Şerefiye","price":"990 lir na osobu","on":false,"why":"Když už cisternu, tak tuhle za polovinu ceny a s menším davem. Oficiální web uvádí 900 lir bez data, zprávy ze září 2026 mluví o 990 lirech pro cizince. Počítáme s vyšší a na místě ji ověřte. Recenze se různí, někomu přijde na to, co je uvnitř, drahá."},{"id":"hagia","eur":25,"name":"Hagia Sofia, horní galerie","price":"25 € na osobu","on":false,"why":"Jen galerie a část pod lešením, recenze rozporuplné."},{"id":"basilica","local":2250,"name":"Bazilikové cisterny","price":"2 250 lir na osobu","on":false,"why":"Hezčí než Şerefiye, ale zhruba dvakrát dražší. Denní vstupné pro cizince uvádějí dva nezávislé zdroje z roku 2026 jako 1 950 lir, ceník Istanbul s Miškou 2 250 lir. Večerní vstup 2 400–3 000 lir. Od června 2026 cisternu spravuje jiný úřad a cena se mění. V rozpočtu je opatrnější vyšší denní cena, na místě ji ověřte."},{"id":"galata","eur":30,"name":"Galatská věž","price":"30 € na osobu","on":false,"why":"Výhledy zdarma od Süleymaniye a z Pierre Loti."},{"id":"dolma","local":2000,"name":"Palác Dolmabahçe","price":"2 000 lir na osobu","on":false,"why":"Druhý palác po Topkapı už je navíc."},{"id":"muzeum","eur":10,"name":"Efeské muzeum","price":"10 € na osobu","on":false,"why":"Dobrá volba, když prší."}]},"homeCurrencyLabel":"Kč","weather":{"sources":["https://api.open-meteo.com/v1/forecast","https://api.met.no/weatherapi/locationforecast/2.0/compact"],"computedAt":"2026-09-26","points":[{"date":"2026-10-08","city":"Istanbul","lat":41.0041,"lng":28.9642},{"date":"2026-10-09","city":"Istanbul","lat":41.0041,"lng":28.9642},{"date":"2026-10-10","city":"Istanbul","lat":41.0041,"lng":28.9642},{"date":"2026-10-11","city":"Istanbul","lat":41.0041,"lng":28.9642},{"date":"2026-10-12","city":"Izmir","lat":38.4244,"lng":27.1484},{"date":"2026-10-13","city":"Selçuk","lat":37.9507,"lng":27.3677},{"date":"2026-10-14","city":"Izmir","lat":38.4244,"lng":27.1484},{"date":"2026-10-15","city":"Izmir","lat":38.4244,"lng":27.1484}]},"dates":{"start":"2026-10-08","end":"2026-10-15"},"storageKey":"turecko-2026"}</script>
+<script type="application/json" id="plan-data">{"travelers":2,"currency":{"local":"TRY","home":"CZK","localNamePlural":"lir","localSymbol":"₺","fallbackRates":{"EUR_CZK":24.5,"EUR_TRY":56},"rateSources":["https://api.frankfurter.dev/v1/latest?base=EUR&symbols=CZK,TRY","https://open.er-api.com/v6/latest/EUR"],"forms":["lira","liry","lir"],"localNameIn":"lirách"},"budget":{"note":"Rozpočet počítá s doporučeným ubytováním a zarezervovanými letenkami. Částky v lirách a eurech se přepočítávají aktuálním kurzem.","categories":[{"id":"lety","label":"Letenky","items":[{"label":"Praha – Istanbul, Turkish Airlines 13:55","calc":"2 × 2 718 Kč","amount":{"czk":5436},"booked":{"date":"2026-09-24","paid":{"czk":5436},"note":"2 718 Kč na osobu"},"covers":["journeys.segments[0]"]},{"label":"Istanbul – Izmir, Turkish Airlines TK2324 13:00","calc":"2 × 1 096 Kč","amount":{"czk":2192},"booked":{"date":"2026-09-24","paid":{"czk":2192},"note":"1 096 Kč na osobu"},"covers":["journeys.segments[1]"]},{"label":"Izmir – Praha, SunExpress 19:00","calc":"2 × 2 256 Kč","amount":{"czk":4512},"booked":{"date":"2026-09-24","paid":{"czk":4512},"note":"2 256 Kč na osobu"},"covers":["journeys.segments[2]"]}]},{"id":"hotel","label":"Ubytování","items":[{"label":"Istanbul, 4 noci","calc":"MorAgop Suites, zarezervováno za 5 744 Kč","amount":{"czk":5744},"booked":{"date":"2026-09-24","paid":{"czk":5744},"note":"MorAgop Suites, 4 noci"},"covers":["hotels.stays[0]"]},{"label":"Izmir, 2 noci","calc":"Ramses Hotel, zarezervováno za 1 778 Kč za noc","amount":{"czk":3556},"booked":{"date":"2026-09-24","paid":{"czk":3556},"note":"Ramses Hotel, 2 noci (12.–13. a 14.–15. 10.) po 1 778 Kč"},"covers":["hotels.stays[1]"]},{"label":"Selçuk, 1 noc","calc":"Nilya Hotel, zarezervováno","amount":{"czk":1780},"booked":{"date":"2026-09-24","paid":{"czk":1780},"note":"Nilya Hotel, 1 noc"},"covers":["hotels.stays[2]"]},{"label":"Snídaně v Izmiru","calc":"Ramses Hotel je bez snídaně: 2 rána × 2 osoby × 100 lir","amount":{"local":400},"note":"Úsporně asi 40 lir na osobu (dva boyozy z pekárny u pultu po 20 lirách), běžně kolem 100 lir (boyoz nebo gevrek s čajem). Snídaňový talíř v podniku stojí zhruba 190–400 lir, tradiční turecká snídaně kolem 550 lir na osobu. V turistických místech stojí boyoz až 30 lir.","priceGuide":{"unit":"osobu a ráno","thrifty":40,"typical":100,"tooMuch":150,"counted":"typical","note":"Úsporně dva boyozy z pekárny u pultu po 20 lirách, běžně boyoz nebo gevrek s čajem. I v turistickém místě s čajem v kavárně to vyjde nejvýš na 120 lir, takže od 150 lir výš je jednoduchá snídaně předražená. Snídaňový talíř v podniku je jiná věc a stojí kolem 190–400 lir. Pekárna je i ta bezpečnější varianta: peče se průběžně a je vidět, co si berete."}}]},{"id":"doprava","label":"Místní doprava","items":[{"label":"Dvě karty İstanbulkart","calc":"2 × 165 lir","amount":{"local":330}},{"label":"Letiště IST – centrum a zpět (M11 + M2)","calc":"M11 42,34–47,89 lir + přestup, cca 85 lir × 2 cesty × 2 osoby","amount":{"local":340},"estimate":true},{"label":"MHD v Istanbulu mimo letiště, lodě z položky níže a taxi","calc":"na osobu: zpáteční loď z Üsküdaru cca 60 lir a 7 jízd tramvají × 46,20 lir, to je 383,40 lir × 2 osoby","amount":{"local":767},"note":"Podle programu: loď z Üsküdaru zpět a T1 Karaköy → hotel (10. 10.), T5 Balat → Eyüp a T1 Eminönü → hotel (11. 10.). Nepovinně T1 ze Süleymaniye (9. 10.) a T1 do Eminönü (ráno 10. 10.). K tomu rezerva 2 jízdy. Přestup do dvou hodin, třeba T1 hned po lodi, je levnější, rozpočet počítá plné jízdné."},{"label":"Lodě a lanovka na Pierre Loti","calc":"lodě 60 + 65 + 77 lir a lanovka 2 × 46,20 lir, to je 294,40 lir na osobu × 2 osoby","amount":{"local":589}},{"label":"Letiště ADB – Izmir centrum","calc":"85 lir × 2 osoby","amount":{"local":170}},{"label":"MHD v Izmiru","calc":"odhad 4 jízdy × 40 lir × 2 osoby","amount":{"local":320},"estimate":true},{"label":"Vlak Basmane – Selçuk a zpět","calc":"120 lir × 2 cesty × 2 osoby","amount":{"local":480}},{"label":"Taxi k horní bráně Efesu","calc":"cca 670 lir za auto pro oba","amount":{"local":670},"estimate":true,"priceGuide":{"unit":"jízdu pro dva","localsPay":210,"thrifty":450,"typical":670,"tooMuch":900,"counted":"typical","note":"Úsporně předem domluvený transfer za 8 €, běžně 12 €. Od 900 lir (16 €) výš je to přepálené a hlášené ceny 40–50 € jsou kořist. Taxametr ukáže minimální jízdné 210 lir: tolik platí místní a od toho se dá smlouvat, ale jako cizinec na to zpravidla nedosáhnete."}},{"label":"Minibus od Efesu do Selçuku","calc":"90–100 lir, počítáno horní hranicí × 2 osoby","amount":{"local":200}},{"label":"Minibus do Şirince a zpět","calc":"100 lir × 2 cesty × 2 osoby, počítáno horní hranicí","amount":{"local":400}},{"label":"Vlak Izmir – letiště","calc":"85 lir × 2 osoby","amount":{"local":170}},{"label":"Taxi z hotelu do Balatu","calc":"cca 360 lir za auto pro oba","amount":{"local":360},"priceGuide":{"unit":"jízdu pro dva","typical":360,"tooMuch":600,"counted":"typical","note":"Objednané přes BiTaksi jede taxi na taxametr, takže platíte tarif jako místní: nástupní 71,94 lir plus 47,92 lir za km, minimálně 230 lir. Od 600 lir výš řidič taxametr nezapnul — trvejte na něm, nebo vystupte."}}]},{"id":"jidlo","label":"Jídlo a pití","intro":"Počítáno na 7 dní pro dva: snídaně v ubytování, oběd v lokantě nebo z ulice, večeře v obyčejné restauraci, dva čaje nebo kávy, svačiny či sladkosti přes den a balená voda. Každá věc je v rozpočtu jen jednou. Částky jsou pro běžné jídlo, u každé položky je napsané i kolik to stojí, když se jí úsporně, a kolik je už moc.","items":[{"label":"Obědy","calc":"400 lir × 2 osoby × 7 dní","amount":{"local":5600},"note":"Kdo chce ušetřit, koupí si jídlo v supermarketu nebo v pekárně. Lokanta s denním menu je jistota: vidíte, co si berete, a vaří se tam průběžně. Běžná cena 400 lir je střed mezi plným talířem v lokantě (kolem 350 lir) a jídlem v levné restauraci (500 lir), protože oběd v lokantě potvrzuje zatím jen jeden zdroj.","priceGuide":{"unit":"osobu a oběd","thrifty":200,"typical":400,"tooMuch":600,"counted":"typical","note":"Úsporně nákup v supermarketu (BİM, A101, ŞOK) nebo pekárna, běžně plný talíř v lokantě nebo levná restaurace (350–500 lir). Od 600 lir výš už jste v turistické restauraci, v Sultanahmetu tam hlavní jídlo stojí 600–1 500 lir. Jídlo z ulice vyjde podobně jako lokanta, ale není to způsob, jak ušetřit bez rizika."}},{"label":"Večeře","calc":"700 lir × 2 osoby × 7 večerů","amount":{"local":9800},"note":"Úsporně 200–350 lir na osobu: lokanta nebo levná restaurace (kolem 500 lir za jídlo), případně nákup v obchodě, kde večeře pro dva vyjde na 400–500 lir. Běžně 700 lir na osobu v obyčejné restauraci. V turistické restauraci v Sultanahmetu stojí hlavní jídlo 600–1 500 lir.","priceGuide":{"unit":"osobu a večeři","thrifty":300,"typical":700,"tooMuch":1000,"counted":"typical","note":"Úsporně večeře z obchodu (pro dva 400–500 lir) nebo lokanta, běžně obyčejná restaurace. Nad 1 000 lir za hlavní jídlo je to turistická restaurace v Sultanahmetu."}},{"label":"Čaj a káva přes den","calc":"120 lir × 2 osoby × 7 dní","amount":{"local":1680},"note":"Úsporně dva čaje po 20–40 lir, běžně čaj a turecká káva (80–150 lir). Latte v kavárně stojí 150–250 lir.","priceGuide":{"unit":"osobu a den","thrifty":40,"typical":120,"tooMuch":250,"counted":"typical","note":"Úsporně dva turecké čaje (20–40 lir za sklenku), běžně čaj a turecká káva (80–150 lir). Latte v kavárně stojí 150–250 lir, za víc už to nemá cenu."}},{"label":"Svačiny a dobroty","calc":"simit, baklava, lokum, džus, kaštany; cca 260 lir × 2 osoby × 7 dní","amount":{"local":3640},"priceGuide":{"unit":"osobu a den","thrifty":150,"typical":260,"tooMuch":400,"counted":"typical","note":"Úsporně simit z pekárny nebo z obchodu, běžně k tomu baklava, lokum nebo džus (džus z vozíku 80–120 lir). Ceny kusů jsou v ceníku jídla."}},{"label":"Balená voda","calc":"2 lahve 0,5 l na osobu a den × 2 osoby × 7 dní × cca 15 lir","amount":{"local":420},"estimate":true,"note":"V BİM nebo A101 stojí půllitrová voda kolem 4 lir, z vozíku nebo v restauraci 20–30 lir. Počítáno středem, z kohoutku se voda nepije.","priceGuide":{"unit":"lahev 0,5 l","thrifty":4,"typical":15,"tooMuch":30,"counted":"typical","note":"V BİM nebo A101 kolem 4 lir, v běžném obchodě zhruba 15 lir, z vozíku a v restauraci 20–30 lir."}}]},{"id":"ostatni","label":"Ostatní","items":[{"label":"Cestovní pojištění","calc":"odhad pro dva na 8 dní, pojištění ke kartě nemáme","amount":{"czk":1000},"estimate":true,"unverifiable":"cenu vydá až kalkulačka pojišťovny, po sjednání se zapíše skutečná částka"},{"label":"Vodafone Připojení v zahraničí 3 GB / 7 dní","calc":"299 Kč, 1 telefon, druhý se připojí přes hotspot","amount":{"czk":299}},{"label":"Palivo Hradec Králové – letiště Praha a zpět","calc":"cca 260 km × 4,5 l/100 km × 45,94 Kč/l","amount":{"czk":537}},{"label":"Parkování GoParking, 8 dní","calc":"venkovní stání, 1 120 Kč z rezervačního formuláře pro 8. 10. 11:00 – 15. 10. 21:00","amount":{"czk":1120},"unverifiable":"dynamická cena z rezervačního formuláře, ověřená ve formuláři 23. 9. 2026"}]}],"entries":[{"id":"topkapi","local":2750,"name":"Palác Topkapı s Harémem","price":"2 750 lir na osobu, kombinovaná vstupenka s Harémem","on":true,"why":"Jediný velký palác, který platíme. Půl dne zážitků."},{"id":"efes","eur":40,"name":"Efes","price":"40 € na osobu","on":true,"fixed":true,"why":"Hlavní cíl cesty."},{"id":"terasy","eur":15,"name":"Terasové domy v Efesu","price":"15 € na osobu","on":true,"why":"Podle blogerů jednoznačně stojí za příplatek."},{"id":"jan","eur":6,"name":"Bazilika sv. Jana","price":"6 € na osobu","on":false,"why":"Levné, s výhledem na Selçuk."},{"id":"serefiye","local":990,"name":"Cisterna Şerefiye","price":"990 lir na osobu","on":false,"why":"Když už cisternu, tak tuhle za polovinu ceny a s menším davem. Oficiální web uvádí 900 lir bez data, zprávy ze září 2026 mluví o 990 lirech pro cizince. Počítáme s vyšší a na místě ji ověřte. Recenze se různí, někomu přijde na to, co je uvnitř, drahá."},{"id":"hagia","eur":25,"name":"Hagia Sofia, horní galerie","price":"25 € na osobu","on":false,"why":"Jen galerie a část pod lešením, recenze rozporuplné."},{"id":"basilica","local":2250,"name":"Bazilikové cisterny","price":"2 250 lir na osobu","on":false,"why":"Hezčí než Şerefiye, ale zhruba dvakrát dražší. Denní vstupné pro cizince uvádějí dva nezávislé zdroje z roku 2026 jako 1 950 lir, ceník Istanbul s Miškou 2 250 lir. Večerní vstup 2 400–3 000 lir. Od června 2026 cisternu spravuje jiný úřad a cena se mění. V rozpočtu je opatrnější vyšší denní cena, na místě ji ověřte."},{"id":"galata","eur":30,"name":"Galatská věž","price":"30 € na osobu","on":false,"why":"Výhledy zdarma od Süleymaniye a z Pierre Loti."},{"id":"dolma","local":2000,"name":"Palác Dolmabahçe","price":"2 000 lir na osobu","on":false,"why":"Druhý palác po Topkapı už je navíc."},{"id":"muzeum","eur":10,"name":"Efeské muzeum","price":"10 € na osobu","on":false,"why":"Dobrá volba, když prší."}]},"homeCurrencyLabel":"Kč","weather":{"sources":["https://api.open-meteo.com/v1/forecast","https://api.met.no/weatherapi/locationforecast/2.0/compact"],"archiveSource":"https://archive-api.open-meteo.com/v1/archive","computedAt":"2026-09-26","years":10,"points":[{"date":"2026-10-08","city":"Istanbul","lat":41.0041,"lng":28.9642},{"date":"2026-10-09","city":"Istanbul","lat":41.0041,"lng":28.9642},{"date":"2026-10-10","city":"Istanbul","lat":41.0041,"lng":28.9642},{"date":"2026-10-11","city":"Istanbul","lat":41.0041,"lng":28.9642},{"date":"2026-10-12","city":"Izmir","lat":38.4244,"lng":27.1484},{"date":"2026-10-13","city":"Selçuk","lat":37.9507,"lng":27.3677},{"date":"2026-10-14","city":"Izmir","lat":38.4244,"lng":27.1484},{"date":"2026-10-15","city":"Izmir","lat":38.4244,"lng":27.1484}],"normals":[{"date":"2026-10-08","tmax":20.7,"tmin":14.1,"destivychLet":5,"zLet":10},{"date":"2026-10-09","tmax":19.8,"tmin":13.3,"destivychLet":3,"zLet":10},{"date":"2026-10-10","tmax":20.5,"tmin":13.7,"destivychLet":0,"zLet":10},{"date":"2026-10-11","tmax":21.2,"tmin":14.3,"destivychLet":3,"zLet":10},{"date":"2026-10-12","tmax":25.9,"tmin":16.5,"destivychLet":1,"zLet":10},{"date":"2026-10-13","tmax":26.7,"tmin":15.6,"destivychLet":3,"zLet":10},{"date":"2026-10-14","tmax":24.9,"tmin":15.4,"destivychLet":0,"zLet":10},{"date":"2026-10-15","tmax":25.1,"tmin":15.8,"destivychLet":2,"zLet":10}]},"dates":{"start":"2026-10-08","end":"2026-10-15"},"storageKey":"turecko-2026"}</script>
 <script>
 /* Počasí na stránkách. Načítá se v prohlížeči při každém otevření, takže je aktuální
    bez Studia a bez zveřejňování. Zdroj je jeden pro celý svět (Open-Meteo), souřadnice
@@ -1040,7 +1039,7 @@ ul.alts b { color: var(--ink); }
   /**
    * Počasí pro zadané body. Volá se jednou za bod, výsledek se drží v paměti prohlížeče
    * půl hodiny, ať se při proklikávání stránky nevolá zdroj pořád dokola.
-   * @param {{sources: Array, points: Array, klic: string}} nastaveni
+   * @param {{sources: Array, points: Array, normals: Array, klic: string}} nastaveni
    */
   function nacti(nastaveni, hotovo) {
     var zdroj = (nastaveni.sources || [])[0];
@@ -1048,8 +1047,12 @@ ul.alts b { color: var(--ink); }
     if (!zdroj || !body.length || !window.fetch) { hotovo(null); return; }
 
     var klic = 'pocasi-' + (nastaveni.klic || 'cesta');
+    var den = nastaveni.dnesniDatum || new Date().toISOString().slice(0, 10);
     var ulozene = null;
     try { ulozene = JSON.parse(store.get(klic) || 'null'); } catch (e) { ulozene = null; }
+    // Uložené se použije jen týž den: po půlnoci se mění místo, kde podle plánu jsme,
+    // a s ním i hodinová předpověď a hodnota „teď“.
+    if (ulozene && ulozene.dnes && ulozene.dnes !== den) ulozene = null;
     if (ulozene && ulozene.at && (Date.now() - ulozene.at) < TTL_MIN * 60000) {
       hotovo({ dny: ulozene.dny, hodiny: ulozene.hodiny, ted: ulozene.ted, zCache: true, at: ulozene.at });
       return;
@@ -1081,6 +1084,7 @@ ul.alts b { color: var(--ink); }
           return;
         }
         slozene.at = Date.now();
+        slozene.dnes = dnes;
         store.set(klic, JSON.stringify(slozene));
         hotovo(slozene);
       });
@@ -1112,12 +1116,26 @@ ul.alts b { color: var(--ink); }
     return { dny: dny, hodiny: hodiny, ted: ted };
   }
 
+  /** Den z dlouhodobého průměru, když předpověď tak daleko nedosáhne. */
+  function zPrumeru(normals, datum) {
+    for (var i = 0; i < (normals || []).length; i += 1) {
+      if (normals[i].date === datum) {
+        return {
+          date: datum, tmax: normals[i].tmax, tmin: normals[i].tmin,
+          destivychLet: normals[i].destivychLet, zLet: normals[i].zLet, predpoved: false
+        };
+      }
+    }
+    return null;
+  }
+
   window.Pocasi = {
     nacti: nacti,
     podleKodu: podleKodu,
     ikona: ikona,
     stupne: stupne,
-    varovaniDest: varovaniDest
+    varovaniDest: varovaniDest,
+    zPrumeru: zPrumeru
   };
 }());
 
@@ -1667,9 +1685,8 @@ var BudgetCore = (function () {
   }
 
   /* ---------- Počasí na celý pobyt ----------
-     Předpověď na každý den z místa, kde ten den budete. Načítá se při každém otevření
-     stránky, takže je pořád aktuální. Dál než předpověď dosáhne (asi 16 dní) se do
-     karty nic nevymýšlí: jsou tam pomlčky a doplní se samy, jak se termín blíží. */
+     Předpověď platí asi 16 dní dopředu; na vzdálenější dny se ukáže dlouhodobý průměr
+     z dat cesty a je to u něj napsané. Načítá se při každém otevření stránky. */
   // Počasí je doplněk: kdyby na něm cokoli spadlo, zbytek plánu musí fungovat dál.
   try { pocasi(); } catch (e) { /* plán funguje i bez počasí */ }
   function pocasi() {
@@ -1683,56 +1700,68 @@ var BudgetCore = (function () {
       return DNY[d.getDay()] + ' ' + d.getDate() + '. ' + (d.getMonth() + 1) + '.';
     }
 
-    function karta(bod, den) {
-      var stav = den ? window.Pocasi.podleKodu(den.kod) : { klic: 'neznamo', popis: '' };
-      // „21 / 13 °C“: nejdřív denní maximum, za lomítkem noční minimum slabším písmem.
-      var teploty = den && typeof den.tmax === 'number'
-        ? Math.round(den.tmax)
-          + (typeof den.tmin === 'number' ? ' <span class="min">/ ' + Math.round(den.tmin) + '</span>' : '')
-          + ' °C'
-        : '—';
-      // Šance na déšť se píše vždycky, i když je nulová: „déšť 5 %“ je informace,
-      // prázdné místo v kartě není. U vyšší šance se zvýrazní.
-      var dest = den && typeof den.dest === 'number'
-        ? '<small' + (den.dest >= 40 ? ' class="mokro"' : '') + '>déšť ' + den.dest + ' %</small>'
-        : '<small class="ceka">zatím bez předpovědi</small>';
-      return '<div class="pocasi-den' + (den ? '' : ' ceka') + '">'
-        + '<b>' + popisekDne(bod.date) + '</b>'
-        + (bod.city ? '<small class="pocasi-mesto">' + bod.city + '</small>' : '')
-        + (den ? window.Pocasi.ikona(stav.klic) : '<span class="pocasi-ikona prazdna"></span>')
-        + '<span class="pocasi-teplota">' + teploty + '</span>'
-        + dest + '</div>';
-    }
-
-    function vykresli(predpovedi, zCache) {
-      var body = W.points || [];
-      if (!body.length) return;
-      document.getElementById('pocasiDny').innerHTML = body.map(function (b) {
-        return karta(b, predpovedi[b.date] || null);
+    function vykresli(dny, poznamka) {
+      if (!dny.length) return;
+      var html = dny.map(function (d) {
+        var stav = d.predpoved ? window.Pocasi.podleKodu(d.kod) : { klic: 'neznamo', popis: '' };
+        // „21 / 13 °C“: nejdřív denní maximum, za lomítkem noční minimum slabším písmem.
+        var teploty = typeof d.tmax === 'number' ? Math.round(d.tmax) : '—';
+        teploty = teploty + (typeof d.tmin === 'number' ? ' <span class="min">/ ' + Math.round(d.tmin) + '</span>' : '') + ' °C';
+        // Šance na déšť se píše vždycky, i když je nulová: „déšť 5 %“ je informace,
+        // prázdné místo v kartě není. U vyšší šance se zvýrazní.
+        var dest = '';
+        if (d.predpoved && typeof d.dest === 'number') {
+          dest = '<small' + (d.dest >= 40 ? ' class="mokro"' : '') + '>déšť ' + d.dest + ' %</small>';
+        }
+        if (!d.predpoved && typeof d.destivychLet === 'number' && d.zLet) {
+          dest = '<small>pršelo ' + d.destivychLet + ' z ' + d.zLet + ' let</small>';
+        }
+        return '<div class="pocasi-den' + (d.predpoved ? '' : ' prumer') + '">'
+          + '<b>' + popisekDne(d.date) + '</b>'
+          + (d.city ? '<small class="pocasi-mesto">' + d.city + '</small>' : '')
+          + (d.predpoved ? window.Pocasi.ikona(stav.klic) : '<span class="pocasi-ikona prazdna"></span>')
+          + '<span class="pocasi-teplota">' + teploty + '</span>'
+          + dest + '</div>';
       }).join('');
-      var kolik = body.filter(function (b) { return predpovedi[b.date]; }).length;
-      var pozn;
-      if (!kolik) {
-        pozn = 'Předpověď tak daleko zatím nedosáhne. Načítá se při každém otevření stránky, '
-          + 'dny se doplní samy, jak se termín blíží.';
-      } else if (kolik < body.length) {
-        pozn = 'Předpověď zatím sahá na ' + kolik + (kolik === 1 ? ' den' : (kolik < 5 ? ' dny' : ' dní'))
-          + '. Zbytek se doplní sám, jak se termín blíží.';
-      } else {
-        pozn = 'Předpověď na každý den z místa, kde ten den budete'
-          + (zCache ? ' (naposledy načtená před chvílí)' : '') + '.';
-      }
-      document.getElementById('pocasiPozn').textContent = pozn;
+      document.getElementById('pocasiDny').innerHTML = html;
+      document.getElementById('pocasiPozn').textContent = poznamka;
       pruh.hidden = false;
     }
 
-    // Než se předpověď načte, ukážou se prázdné karty. Nic se nepředstírá.
-    vykresli({}, false);
+    // Nejdřív to, co je v datech (dlouhodobý průměr), ať je něco vidět hned.
+    var zaklad = (W.points || []).map(function (b) {
+      var n = window.Pocasi.zPrumeru(W.normals, b.date);
+      return n ? { date: b.date, city: b.city, tmax: n.tmax, tmin: n.tmin,
+        destivychLet: n.destivychLet, zLet: n.zLet, predpoved: false } : null;
+    }).filter(Boolean);
+    if (zaklad.length) {
+      vykresli(zaklad, 'Dlouhodobý průměr z let ' + (W.years || 10) + ' zpět. Předpověď se načítá při otevření stránky.');
+    }
 
     window.Pocasi.nacti({ sources: W.sources, points: W.points, klic: DATA.storageKey }, function (v) {
       var predpovedi = {};
       ((v && v.dny) || []).forEach(function (d) { predpovedi[d.date] = d; });
-      vykresli(predpovedi, Boolean(v && v.zCache));
+      var dny = (W.points || []).map(function (b) {
+        if (predpovedi[b.date]) { predpovedi[b.date].city = b.city; return predpovedi[b.date]; }
+        var n = window.Pocasi.zPrumeru(W.normals, b.date);
+        return n ? { date: b.date, city: b.city, tmax: n.tmax, tmin: n.tmin,
+          destivychLet: n.destivychLet, zLet: n.zLet, predpoved: false } : null;
+      }).filter(Boolean);
+      var kolikPredpoved = dny.filter(function (d) { return d.predpoved; }).length;
+      var pozn;
+      if (!kolikPredpoved) {
+        pozn = 'Předpověď tak daleko nedosáhne, tohle je dlouhodobý průměr z posledních '
+          + (W.years || 10) + ' let. Čím blíž k termínu, tím víc dní se přepne na předpověď.';
+      } else if (kolikPredpoved < dny.length) {
+        var dnu = kolikPredpoved === 1 ? 'První den je předpověď'
+          : (kolikPredpoved < 5 ? 'První ' + kolikPredpoved + ' dny jsou předpověď'
+            : 'Prvních ' + kolikPredpoved + ' dní je předpověď');
+        pozn = dnu + ', zbytek dlouhodobý průměr z posledních '
+          + (W.years || 10) + ' let. Načítá se při každém otevření stránky.';
+      } else {
+        pozn = 'Předpověď načtená při otevření stránky' + (v && v.zCache ? ' (naposledy před chvílí)' : '') + '.';
+      }
+      vykresli(dny, pozn);
     });
   }
 })();
