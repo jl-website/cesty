@@ -251,14 +251,6 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
 .pocasi-sloty.bez-deste li { grid-template-rows: auto 24px auto; }
 .pocasi-sloty.bez-deste .dest { display: none; }
 
-/* Přepínač Dnes / Zítra / den po něm. Vybraný den je plný, ať je jasné, ke kterému dni
-   pruh patří — údaj, který neplatí pro „teď“, musí být vidět na první pohled. */
-.pocasi-prepinac { display: flex; gap: 6px; margin: 0 0 8px; }
-.pocasi-prepinac button {
-  border: 1px solid rgba(255, 255, 255, .22); background: none; color: var(--hero-ink);
-  border-radius: 999px; padding: 5px 12px; min-height: 34px; font-size: .85rem; font-weight: 600; cursor: pointer;
-}
-.pocasi-prepinac button[aria-pressed="true"] { background: var(--saffron); border-color: var(--saffron); color: var(--hero); }
 
 </style>
 </head>
@@ -279,7 +271,6 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
   </div>
   <p class="pocasi-varovani wrap" id="pocasiVarovani" hidden></p>
   <div class="pocasi-den-prubeh wrap" id="pocasiPrubeh" hidden>
-    <div class="pocasi-prepinac" id="pocasiDny" role="group" aria-label="Den předpovědi" hidden></div>
     <p class="pocasi-souhrn" id="pocasiSouhrn"></p>
     <ol class="pocasi-sloty" id="pocasiSloty" aria-label="Počasí během dne"></ol>
   </div>
@@ -919,8 +910,6 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
     btn.addEventListener('click', function () {
       current = i;
       renderAll();
-      // Počasí jde s vybraným dnem programu, pokud na něj průběh dosáhne (dnes + dva dny).
-      try { pocasiNaDen(DAYS[i].date); } catch (e) { /* počasí je doplněk */ }
     });
     daysEl.appendChild(btn);
   });
@@ -1134,7 +1123,12 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
     if (cardInfo) cardInfo.hidden = (DATA.localTransportCardDates || []).indexOf(day.date) === -1;
   }
 
-  function renderAll() { renderDay(); renderTransport(); }
+  function renderAll() {
+    renderDay();
+    renderTransport();
+    // Průběh počasí patří k vybranému dni programu.
+    try { prekresliPocasi(); } catch (e) { /* počasí je doplněk */ }
+  }
 
   /* Při otevření v den cesty sjet rovnou na bod, který je právě na řadě (vzor
      Wanderlog a TripIt). Jen jednou při načtení, jen na záložce Program, skokem
@@ -1330,7 +1324,6 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
   /* Průběh dne pod lištou: „teď“ a pak po třech hodinách do večera, ať je ráno vidět,
      že odpoledne bude o deset stupňů víc nebo že ve tři začne pršet (zadání uživatele
      8. 10. 2026). Hodinová předpověď by na telefonu byla dlouhá a nikdo ji nečte. */
-  var vybranyDenPocasi = null;
   var posledniPocasi = null;
   var DNY_KRATCE = ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'];
 
@@ -1340,45 +1333,37 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
     return null;
   }
 
-  /* Přepínač dnů nad průběhem: dnešek a další dva dny (zadání uživatele 8. 10. 2026).
-     Každý den je z místa, kde tu noc spíme; den mimo cestu se nenabízí vůbec. Večer, kdy
-     z dneška nic nezbývá, je rovnou vybraný zítřek. */
-  function dnyPrubehu(v, ted) {
+  /* Průběh pro den vybraný v programu (lišta s daty pod záložkami). Předpověď po hodinách
+     je na dnešek a dva další dny, vždy z místa, kde tu noc spíme. Pro jiný den (dřívější,
+     vzdálenější, mimo cestu) vrací null a pruh se skryje — zadání uživatele 8. 10. 2026:
+     žádný zvláštní přepínač nad pruhem, dny jen lištou s daty, bez předpovědi nic. */
+  function prubehNaDen(v, ted, datum) {
     var P = window.Pocasi;
     var dnes = ted.slice(0, 10);
-    var dny = [];
+    var bod = bodNaDen(datum);
+    if (!v || !bod) return null;
     for (var n = 0; n < 3; n += 1) {
-      var datum = P.posunDatum(dnes, n);
-      var bod = bodNaDen(datum);
-      if (!bod) continue;
+      if (P.posunDatum(dnes, n) !== datum) continue;
       var hodiny = n === 0 ? v.hodiny : (v.hodinyDne || {})[datum];
       var p = hodiny ? P.prubehDne(hodiny, n === 0 ? ted : datum + 'T00:00', n === 0 ? v.ted : null, n > 0) : null;
-      if (!p) continue;
+      if (!p) return null;
       var d = new Date(datum + 'T12:00:00Z');
-      var stitek = n === 0 ? 'Dnes' : n === 1 ? 'Zítra'
+      var stitek = n === 0 ? '' : n === 1 ? 'Zítra'
         : DNY_KRATCE[d.getUTCDay()] + ' ' + d.getUTCDate() + '. ' + (d.getUTCMonth() + 1) + '.';
-      dny.push({ datum: datum, bod: bod, p: p, stitek: stitek, dnes: n === 0 });
+      return { bod: bod, p: p, stitek: stitek };
     }
-    return dny;
+    return null;
   }
 
   function vypisPrubeh(v, ted) {
     var box = document.getElementById('pocasiPrubeh');
     if (!box) return;
-    posledniPocasi = { v: v, ted: ted };
-    var dny = v ? dnyPrubehu(v, ted) : [];
-    if (!dny.length) { box.hidden = true; return; }
-    var vybrany = dny.filter(function (d) { return d.datum === vybranyDenPocasi; })[0] || dny[0];
-
-    var prepinac = pocasiDny;
-    prepinac.hidden = dny.length < 2;
-    prepinac.innerHTML = dny.map(function (d) {
-      return '<button type="button" data-den="' + d.datum + '" aria-pressed="' + (d === vybrany) + '">'
-        + esc(d.stitek) + '</button>';
-    }).join('');
+    posledniPocasi = { v: v };
+    var den = DAYS[current] ? prubehNaDen(v, ted, DAYS[current].date) : null;
+    if (!den) { box.hidden = true; return; }
 
     var P = window.Pocasi;
-    var p = vybrany.p;
+    var p = den.p;
     var sloty = document.getElementById('pocasiSloty');
     // Když déšť nehrozí v žádném úseku, řádek pro něj zmizí, ať pruh nemá prázdné místo.
     sloty.classList.toggle('bez-deste', !p.sloty.some(function (s) { return s.dest >= 30; }));
@@ -1393,35 +1378,23 @@ p.leaveat { margin: 4px 0 0; font-weight: 600; }
         + '<span class="dest' + (s.dest >= 50 ? ' silny' : '') + '">'
         + (dest ? s.dest + ' %' : '') + '</span></li>';
     }).join('');
-    // Název místa se neskloňuje (je z dat, pro jakoukoli zemi), proto „Istanbul · …“.
-    var souhrn = vybrany.bod.city || vybrany.stitek;
+    // Jiný den než dnešek se v souhrnu jmenuje, ať je jasné, že pruh neplatí pro „teď“.
+    // Název místa se neskloňuje (je z dat, pro jakoukoli zemi), proto „Zítra · Izmir · …“.
+    var souhrn = [den.stitek, den.bod.city].filter(Boolean).join(' · ');
     // U dneška vrchol přijde, jen když ještě opravdu stoupne (hlídá prubehDne);
     // u dalšího dne patří k přehledu vždy.
     if (p.max) {
-      souhrn += ' · nejtepleji kolem ' + p.max.cas + ', ' + Math.round(p.max.t) + ' °C';
+      souhrn += (souhrn ? ' · ' : '') + 'nejtepleji kolem ' + p.max.cas + ', ' + Math.round(p.max.t) + ' °C';
     }
     document.getElementById('pocasiSouhrn').textContent = souhrn;
     box.hidden = false;
   }
 
-  /* Výběr dne v programu přepne i průběh počasí (uživatel 8. 10. 2026 klikal na dny
-     programu a čekal, že se počasí změní). Den, na který průběh nedosáhne, ho nechá být. */
-  function pocasiNaDen(datum) {
-    if (!posledniPocasi) return;
-    var dostupne = dnyPrubehu(posledniPocasi.v, posledniPocasi.ted).map(function (d) { return d.datum; });
-    if (dostupne.indexOf(datum) < 0) return;
-    vybranyDenPocasi = datum;
-    vypisPrubeh(posledniPocasi.v, posledniPocasi.ted);
+  /* Po změně dne v programu (i po půlnočním přepnutí) se pruh překreslí z už načtených dat,
+     bez nového dotazu na zdroj. „Teď“ se bere vždy čerstvé. */
+  function prekresliPocasi() {
+    if (posledniPocasi) vypisPrubeh(posledniPocasi.v, mistniCas());
   }
-
-  // Bez prvku (starší náhled) se nic nepřipojí: počasí nesmí zastavit zbytek stránky.
-  var pocasiDny = document.getElementById('pocasiDny');
-  if (pocasiDny) pocasiDny.addEventListener('click', function (e) {
-    var tl = e.target.closest('button[data-den]');
-    if (!tl || !posledniPocasi) return;
-    vybranyDenPocasi = tl.getAttribute('data-den');
-    try { vypisPrubeh(posledniPocasi.v, posledniPocasi.ted); } catch (err) { /* počasí je doplněk */ }
-  });
 
   function vypisPocasi() {
     var W = DATA.weather;
