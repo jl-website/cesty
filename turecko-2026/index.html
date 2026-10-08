@@ -993,6 +993,11 @@ ul.alts b { color: var(--ink); }
     return { klic: 'neznamo', popis: '' };
   }
 
+  function popisKlice(klic) {
+    for (var i = 0; i < WMO.length; i += 1) if (WMO[i].klic === klic) return WMO[i].popis;
+    return '';
+  }
+
   /* Ikony jako SVG rovnou ve stránce: žádné stahování, fungují i bez sítě a v tmavém
      režimu se obarví podle textu. */
   var SLUNCE = '<circle cx="12" cy="12" r="4.6"/><g stroke="currentColor" stroke-width="1.7" stroke-linecap="round">'
@@ -1000,10 +1005,15 @@ ul.alts b { color: var(--ink); }
   var MRAK = '<path d="M7.5 19h9.7a3.8 3.8 0 0 0 .3-7.6 5.6 5.6 0 0 0-10.8-1.2A4.2 4.2 0 0 0 7.5 19z"/>';
   var KAPKY = '<g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 20.5l-.9 2M13 20.5l-.9 2M17 20.5l-.9 2"/></g>';
 
-  function ikona(klic) {
+  var MESIC = '<path d="M15.5 3.2a8.6 8.6 0 1 0 5.3 15.1A7.4 7.4 0 0 1 15.5 3.2z"/>';
+
+  /* V noci se jasno kreslí měsícem: slunce ve 21:00 by bylo matoucí. */
+  function ikona(klic, noc) {
     var obsah;
-    if (klic === 'jasno') obsah = SLUNCE;
-    else if (klic === 'polojasno') obsah = '<circle cx="8.4" cy="8.4" r="3.4"/>' + MRAK;
+    if (klic === 'jasno') obsah = noc ? MESIC : SLUNCE;
+    else if (klic === 'polojasno') obsah = noc
+      ? '<path d="M9.6 2.6a5 5 0 1 0 3.6 8.4 4.3 4.3 0 0 1-3.6-8.4z"/>' + MRAK
+      : '<circle cx="8.4" cy="8.4" r="3.4"/>' + MRAK;
     else if (klic === 'zatazeno' || klic === 'mlha') obsah = MRAK;
     else if (klic === 'dest' || klic === 'mrholeni' || klic === 'prehanky') obsah = MRAK + KAPKY;
     else if (klic === 'snih') obsah = MRAK + '<g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">'
@@ -1045,12 +1055,107 @@ ul.alts b { color: var(--ink); }
     return '';
   }
 
+  /* Co je na obloze důležitější, když se v jednom úseku dne střídá víc stavů: déšť
+     přebije sluníčko, protože právě kvůli němu se člověk na předpověď dívá. */
+  var VAHA = { jasno: 0, polojasno: 1, zatazeno: 2, mlha: 3, mrholeni: 4, prehanky: 5, dest: 6, snih: 7, bourka: 8 };
+
+  /* Další dny: pevná mřížka 6:00–21:00, časy se dají přečíst jedním pohledem.
+     Dnešek: klouzavé okno „teď“ a dalších pět úseků po třech hodinách, i přes půlnoc —
+     večer tak je vidět noc a ráno, místo dvou posledních sloupců (zadání uživatele
+     8. 10. 2026). */
+  var MRIZKA = [6, 9, 12, 15, 18, 21];
+  var USEKU = 6;
+  var DELKA_USEKU = 3;
+
+  /**
+   * Jak se bude počasí vyvíjet po třech hodinách. Teplota je ta v daný čas, déšť nejvyšší
+   * šance v celém úseku a ikona nejvýznamnější stav v úseku (aby se přeháňka ve 13:00
+   * neztratila mezi dvěma časy).
+   *
+   * @param {object} hodiny hodinová předpověď od zdroje (časy v místním čase, po hodinách
+   *   za sebou; u dneška i noc a ráno dalšího dne)
+   * @param {string} ted místní čas „RRRR-MM-DDTHH:MM“ (u dalšího dne jen jeho datum)
+   * @param {object} [aktualne] aktuální měření ({temperature_2m, weather_code})
+   * @param {boolean} [celyDen] další den: mřížka 6:00–21:00, bez „teď“
+   * @returns {{sloty: Array, max: object|null}|null} null, když není co ukázat
+   */
+  function prubehDne(hodiny, ted, aktualne, celyDen) {
+    if (!hodiny || !hodiny.time || !hodiny.temperature_2m) return null;
+    var den = ted.slice(0, 10);
+    if (celyDen) aktualne = null;
+    var indexCasu = {};
+    hodiny.time.forEach(function (t, i) { indexCasu[t.slice(0, 13)] = i; });
+    var dv = function (x) { return ('0' + x).slice(-2); };
+
+    var zacatky;
+    if (celyDen) {
+      zacatky = MRIZKA.map(function (h) { return indexCasu[den + 'T' + dv(h)]; });
+    } else {
+      var i0 = indexCasu[ted.slice(0, 13)];
+      zacatky = [];
+      for (var n = 0; i0 !== undefined && n < USEKU; n += 1) zacatky.push(i0 + n * DELKA_USEKU);
+    }
+    // Chybí-li začátek některého úseku (předpověď končí), úseky se utnou před ním.
+    var platne = [];
+    for (var z = 0; z < zacatky.length; z += 1) {
+      if (zacatky[z] === undefined || zacatky[z] >= hodiny.time.length) break;
+      platne.push(zacatky[z]);
+    }
+    if (platne.length < 2) return null;
+
+    var pole = function (nazev, idx) { return hodiny[nazev] ? hodiny[nazev][idx] : null; };
+    var sloty = platne.map(function (od, n) {
+      var dest = null;
+      var klic = null;
+      for (var idx = od; idx < od + DELKA_USEKU && idx < hodiny.time.length; idx += 1) {
+        var p = pole('precipitation_probability', idx);
+        if (typeof p === 'number' && (dest === null || p > dest)) dest = p;
+        var k = podleKodu(pole('weather_code', idx)).klic;
+        if (VAHA[k] !== undefined && (klic === null || VAHA[k] > VAHA[klic])) klic = k;
+      }
+      var t = pole('temperature_2m', od);
+      var jeTed = n === 0 && !celyDen;
+      if (jeTed && aktualne && typeof aktualne.temperature_2m === 'number') t = aktualne.temperature_2m;
+      if (jeTed && aktualne && aktualne.weather_code !== undefined && aktualne.weather_code !== null) {
+        var kt = podleKodu(aktualne.weather_code).klic;
+        if (VAHA[kt] !== undefined && (klic === null || VAHA[kt] > VAHA[klic])) klic = kt;
+      }
+      return {
+        cas: jeTed ? 'teď' : Number(hodiny.time[od].slice(11, 13)) + ':00',
+        t: t,
+        klic: klic || 'neznamo',
+        popis: popisKlice(klic),
+        dest: dest,
+        noc: pole('is_day', od) === 0
+      };
+    });
+
+    // Nejtepleji ve zbytku dne (jen do půlnoci): vrchol často padne mezi dva úseky (14:00).
+    // U dneška jen v hodinách, které teprve přijdou — „nejtepleji kolem 20:00“ ve 20:10
+    // by nic neříkalo.
+    var max = null;
+    var hodinaTed = celyDen ? -1 : Number(ted.slice(11, 13));
+    hodiny.time.forEach(function (cas, i) {
+      if (cas.slice(0, 10) !== den || Number(cas.slice(11, 13)) <= hodinaTed) return;
+      var t = pole('temperature_2m', i);
+      if (typeof t === 'number' && (!max || t > max.t)) max = { t: t, cas: Number(cas.slice(11, 13)) + ':00' };
+    });
+    // U dneška se vrchol řekne, jen když ještě opravdu stoupne aspoň o 2 °C — proti měření
+    // i proti hodinové předpovědi na teď (liší se a vyšší z nich je poctivější srovnání).
+    if (!celyDen && max) {
+      var zaklad = [pole('temperature_2m', platne[0]), aktualne && aktualne.temperature_2m]
+        .filter(function (x) { return typeof x === 'number'; });
+      if (zaklad.length && max.t - Math.max.apply(null, zaklad) < 2) max = null;
+    }
+    return { sloty: sloty, max: max };
+  }
+
   /** Jedno volání na jeden bod. Vrací dny i hodiny, ať se nemusí ptát dvakrát. */
   function nactiBod(zdroj, bod, odDatum, doDatum, sHodinami) {
     var url = zdroj + '?latitude=' + bod.lat + '&longitude=' + bod.lng
       + '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max'
       + '&timezone=auto&forecast_days=16';
-    if (sHodinami) url += '&hourly=temperature_2m,precipitation_probability,weather_code&current=temperature_2m,weather_code';
+    if (sHodinami) url += '&hourly=temperature_2m,precipitation_probability,weather_code,is_day&current=temperature_2m,weather_code';
     var ctl = window.AbortController ? new AbortController() : null;
     var to = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
     return fetch(url, ctl ? { signal: ctl.signal } : {}).then(function (r) {
@@ -1068,6 +1173,33 @@ ul.alts b { color: var(--ink); }
    * půl hodiny, ať se při proklikávání stránky nevolá zdroj pořád dokola.
    * @param {{sources: Array, points: Array, normals: Array, klic: string}} nastaveni
    */
+  /** Datum posunuté o n dní („RRRR-MM-DD“), bez ohledu na časové pásmo prohlížeče. */
+  function posunDatum(iso, n) {
+    var d = new Date(iso + 'T12:00:00Z');
+    d.setUTCDate(d.getUTCDate() + n);
+    return d.toISOString().slice(0, 10);
+  }
+
+  /* Na kolik dní dopředu (včetně dneška) se v průvodci dá přepnout průběh dne.
+     Zadání uživatele 8. 10. 2026: dnešek a další dva dny. */
+  var DNY_PRUBEHU = 3;
+
+  /** Z hodinové předpovědi vybere jen zadané dny (do paměti prohlížeče se neukládá 16 dní). */
+  function hodinyNaDen(hourly, datum) { return hodinyNaDny(hourly, [datum]); }
+
+  function hodinyNaDny(hourly, datumy) {
+    if (!hourly || !hourly.time) return null;
+    var vysledek = {};
+    var indexy = [];
+    hourly.time.forEach(function (t, i) { if (datumy.indexOf(t.slice(0, 10)) >= 0) indexy.push(i); });
+    if (!indexy.length) return null;
+    Object.keys(hourly).forEach(function (pole) {
+      if (!Array.isArray(hourly[pole])) return;
+      vysledek[pole] = indexy.map(function (i) { return hourly[pole][i]; });
+    });
+    return vysledek;
+  }
+
   function nacti(nastaveni, hotovo) {
     var zdroj = (nastaveni.sources || [])[0];
     var body = nastaveni.points || [];
@@ -1080,8 +1212,10 @@ ul.alts b { color: var(--ink); }
     // Uložené se použije jen týž den: po půlnoci se mění místo, kde podle plánu jsme,
     // a s ním i hodinová předpověď a hodnota „teď“.
     if (ulozene && ulozene.dnes && ulozene.dnes !== den) ulozene = null;
+    // Starší uložený tvar neměl hodiny na další dny: ten se načte znovu.
+    if (ulozene && nastaveni.dnesniDatum && !ulozene.hodinyDne) ulozene = null;
     if (ulozene && ulozene.at && (Date.now() - ulozene.at) < TTL_MIN * 60000) {
-      hotovo({ dny: ulozene.dny, hodiny: ulozene.hodiny, ted: ulozene.ted, zCache: true, at: ulozene.at });
+      hotovo(zUlozeneho(ulozene));
       return;
     }
 
@@ -1093,20 +1227,27 @@ ul.alts b { color: var(--ink); }
     var zbyva = klice.length;
     var dnes = nastaveni.dnesniDatum || new Date().toISOString().slice(0, 10);
     var chyba = false;
+    // Hodiny jen pro místa, kde budeme dnes a v dalších dnech průběhu. Bez dnešního data
+    // (plán) se hodiny nestahují vůbec.
+    var dnyHodin = [];
+    if (nastaveni.dnesniDatum) {
+      for (var n = 0; n < DNY_PRUBEHU; n += 1) dnyHodin.push(posunDatum(dnes, n));
+    }
 
     klice.forEach(function (k) {
       var bod = unikatni[k];
-      var dnesniBod = body.filter(function (b) { return b.date === dnes; })[0];
-      var sHodinami = Boolean(dnesniBod && (dnesniBod.lat + ',' + dnesniBod.lng) === k);
+      var sHodinami = body.some(function (b) {
+        return dnyHodin.indexOf(b.date) >= 0 && (b.lat + ',' + b.lng) === k;
+      });
       nactiBod(zdroj, bod, null, null, sHodinami).then(function (data) {
         vysledky[k] = data;
       }).catch(function () { chyba = true; }).then(function () {
         zbyva -= 1;
         if (zbyva > 0) return;
-        var slozene = slozit(body, vysledky);
+        var slozene = slozit(body, vysledky, dnes, dnyHodin);
         if (!slozene.dny.length && chyba) {
           // Nepovedlo se nic: radši starší uložený stav než nic, ale řekne se to.
-          if (ulozene) hotovo({ dny: ulozene.dny, hodiny: ulozene.hodiny, ted: ulozene.ted, zCache: true, at: ulozene.at });
+          if (ulozene) hotovo(zUlozeneho(ulozene));
           else hotovo(null);
           return;
         }
@@ -1118,11 +1259,20 @@ ul.alts b { color: var(--ink); }
     });
   }
 
-  /** Z odpovědí na jednotlivé body udělá jeden seznam dnů cesty. */
-  function slozit(body, vysledky) {
+  function zUlozeneho(u) {
+    return { dny: u.dny, hodiny: u.hodiny, hodinyDne: u.hodinyDne || {}, ted: u.ted, zCache: true, at: u.at };
+  }
+
+  /**
+   * Z odpovědí na jednotlivé body udělá jeden seznam dnů cesty. Hodiny a „teď“ se berou
+   * z místa, kde jsme dnes (dřív z prvního místa, které hodiny mělo — s víc místy by to
+   * mohlo být to zítřejší). Hodiny na další dny jsou vždy z místa té noci.
+   */
+  function slozit(body, vysledky, dnes, dnyHodin) {
     var dny = [];
     var hodiny = null;
     var ted = null;
+    var hodinyDne = {};
     body.forEach(function (b) {
       var data = vysledky[b.lat + ',' + b.lng];
       if (!data || !data.daily) return;
@@ -1137,10 +1287,16 @@ ul.alts b { color: var(--ink); }
         dest: data.daily.precipitation_probability_max ? data.daily.precipitation_probability_max[i] : null,
         predpoved: true
       });
-      if (data.hourly && !hodiny) hodiny = data.hourly;
-      if (data.current && !ted) ted = data.current;
+      if ((dnyHodin || []).indexOf(b.date) >= 0 && data.hourly) {
+        hodinyDne[b.date] = hodinyNaDen(data.hourly, b.date);
+      }
+      if (b.date === dnes) {
+        // Dnešek i následující den: klouzavé okno večer sahá přes půlnoc do rána.
+        if (data.hourly) hodiny = hodinyNaDny(data.hourly, [dnes, posunDatum(dnes, 1)]);
+        if (data.current) ted = data.current;
+      }
     });
-    return { dny: dny, hodiny: hodiny, ted: ted };
+    return { dny: dny, hodiny: hodiny, hodinyDne: hodinyDne, ted: ted };
   }
 
   /** Den z dlouhodobého průměru, když předpověď tak daleko nedosáhne. */
@@ -1162,6 +1318,8 @@ ul.alts b { color: var(--ink); }
     ikona: ikona,
     stupne: stupne,
     varovaniDest: varovaniDest,
+    prubehDne: prubehDne,
+    posunDatum: posunDatum,
     zPrumeru: zPrumeru
   };
 }());
