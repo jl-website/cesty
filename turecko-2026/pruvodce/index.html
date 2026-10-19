@@ -968,6 +968,18 @@ ul.ochutnat .kde { color: var(--muted); }
   };
 
 
+  /* ---------- Proč tahle doprava: porovnané varianty (z letiště a na letiště) ---------- */
+  function procTahle(c) {
+    if (!c || !c.compared || !c.compared.length) return '';
+    return '<details class="jaknato"><summary>Proč tahle doprava</summary><p>' + esc(c.reason) + '</p><ul>'
+      + c.compared.map(function (v) {
+        var fakta = [v.minutes, v.price, typeof v.transfers === 'number' ? (v.transfers ? v.transfers + '× přestup' : 'bez přestupu') : '']
+          .filter(Boolean).join(' · ');
+        return '<li>' + (v.chosen ? '<b>✓ ' + esc(v.label) + '</b>' : esc(v.label))
+          + (fakta ? ' — ' + esc(fakta) : '') + (v.note ? '<br><span class="dn">' + esc(v.note) + '</span>' : '') + '</li>';
+      }).join('') + '</ul></details>';
+  }
+
   /* ---------- Jak na to: kudy přesně jít při přestupu (PRESTAVBA A13) ---------- */
   function jakNaTo(h) {
     if (!h || !h.steps || !h.steps.length) return '';
@@ -1118,7 +1130,7 @@ ul.ochutnat .kde { color: var(--muted); }
       if (item.transfer && item.transfer.text) {
         h += '<li class="transfer"><div class="uzel"></div><div class="item">' + esc(item.transfer.text)
           + (item.transfer.url ? ' <a class="chip map" href="' + esc(item.transfer.url) + '" target="_blank" rel="noreferrer">Navigovat</a>' : '')
-          + jakNaTo(item.transfer.howTo)
+          + jakNaTo(item.transfer.howTo) + procTahle(item.transfer.choice)
           + '</div></li>';
       }
       /* Druh bodu nese ikona v barevném kolečku na lince (vzor TripIt) a slovo
@@ -1262,6 +1274,7 @@ ul.ochutnat .kde { color: var(--muted); }
       if (chips) h += '<div class="chips">' + chips + '</div>';
       if (leg.warning) h += '<p class="warn">' + esc(leg.warning) + '</p>';
       h += jakNaTo(leg.howTo);
+      h += procTahle(leg.choice);
       h += '</div>';
     });
     h += placeniHtml(day);
